@@ -103,7 +103,7 @@ export function SiteShell({
               <LangToggle className={s.language} />
               <Link href="/login" className={s.signIn}>
                 <Icon name="user" size={16} />
-                {t.public.staffLogin}
+                {t.public.login}
               </Link>
               <button
                 ref={menuButton}
@@ -140,7 +140,7 @@ export function SiteShell({
                 </Link>
               ))}
               <Link href="/login">
-                {t.public.staffLogin}
+                {t.public.login}
                 <Icon name="user" size={16} />
               </Link>
             </nav>
@@ -190,7 +190,7 @@ export function SiteShell({
                 >
                   {c.privacy}
                 </a>
-                <Link href="/login">{t.public.staffLogin}</Link>
+                <Link href="/login">{t.public.login}</Link>
               </div>
             </div>
             <div className={s.footerBottom}>
