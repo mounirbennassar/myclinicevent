@@ -126,17 +126,39 @@ Set `RESEND_API_KEY` and `EMAIL_FROM` in `backend/.env`. Until `myclinic.com.sa`
 
 ## Deploy with Docker
 
-A ready-made stack is in `docker-compose.yml`: Postgres, the API, the Next.js app and Caddy (automatic HTTPS from Let's Encrypt). On a server with Docker, with the DNS record for `event.myclinic.com.sa` pointing at it:
+A ready-made stack is in `docker-compose.yml`: Postgres, the API, the Next.js app and Caddy (automatic HTTPS from Let's Encrypt). Only Caddy (ports 80/443) is exposed; the API is reachable solely through the Next.js `/api` proxy.
+
+**First install** on a server with Docker and git, with the DNS record for `event.myclinic.com.sa` pointing at it:
 
 ```bash
+git clone https://github.com/mounirbennassar/myclinicevent.git ~/myclinic-event
+cd ~/myclinic-event
 cp .env.example .env                  # DOMAIN=event.myclinic.com.sa and POSTGRES_PASSWORD
 cp backend/.env.example backend/.env  # SECRET_KEY, SUPERADMIN_*, RESEND_API_KEY, EMAIL_FROM
 docker compose up -d --build
 ```
 
-Migrations run automatically when the API starts. Only Caddy (ports 80/443) is exposed; the API is reachable solely through the Next.js `/api` proxy. Back up the `pgdata` volume (`docker compose exec db pg_dump -U mce myclinic_events > backup.sql`).
+Migrations run automatically when the API starts. The super admin from `backend/.env` is created on the first start.
 
-The Docker files were written but not built on this machine (Docker wasn't running), so expect to fix small things on the first `docker compose up`.
+**Updates**: push to `main`, then on the server run:
+
+```bash
+~/myclinic-event/deploy/deploy.sh
+```
+
+It resets the checkout to `origin/main`, rebuilds the images, restarts only what changed and waits until the API answers on `/api/health`. The two `.env` files are not in git and survive updates.
+
+**Changing the domain** (for example moving the demo server from its temporary address to `event.myclinic.com.sa`): set `DOMAIN` in `.env`, then `docker compose up -d`. Caddy obtains the new certificate on its own.
+
+**Demo data**: the seed refuses `--reset` while `APP_ENV=production`, so on a demo server override it for that one command:
+
+```bash
+docker compose exec -T -e APP_ENV=development backend /app/.venv/bin/python -m app.seed --reset --demo
+```
+
+This destroys all existing data and recreates the demo events and accounts (the demo team password is printed). Never run it against real event data.
+
+Back up the `pgdata` volume with `docker compose exec db pg_dump -U mce myclinic_events > backup.sql`.
 
 ## Production checklist
 
