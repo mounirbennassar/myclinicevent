@@ -1,6 +1,14 @@
 # Caddy terminates HTTPS (Let's Encrypt) and sets X-Forwarded-For to the real client IP,
 # which the API's rate limiter relies on. Untrusted incoming X-Forwarded-For values are dropped.
-{$DOMAIN} {
+#
+# DOMAIN is the primary address (used in emailed links and QR codes). ALT_DOMAIN is optional:
+# extra hostnames, space separated, that should also reach the app, for example the final
+# domain while its DNS is still propagating, or the old address after a domain change.
+# Certificates are issued on demand, so a name whose DNS is not live yet causes no errors.
+{$DOMAIN} {$ALT_DOMAIN} {
+	tls {
+		on_demand
+	}
 	encode zstd gzip
 	reverse_proxy frontend:3000
 	header {
