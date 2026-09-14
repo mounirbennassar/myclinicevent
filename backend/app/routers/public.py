@@ -3,7 +3,7 @@
 from datetime import timedelta
 
 from fastapi import APIRouter, BackgroundTasks, Depends, Request, Response
-from sqlalchemy import func, select
+from sqlalchemy import case, func, select
 from sqlalchemy.orm import Session, selectinload
 
 from .. import services as svc
@@ -38,14 +38,26 @@ def _registration_by_token(db: Session, token: str) -> Registration:
 
 
 @router.get("/events")
-def list_public_events(db: Session = Depends(get_db)):
+def list_public_events(include_past: bool = False, db: Session = Depends(get_db)):
+    """The upcoming feed stays the default; the catalogue can include published past events."""
     now = svc.utcnow()
-    events = db.scalars(
+    query = (
         select(Event)
         .options(selectinload(Event.sessions))
-        .where(Event.status == "published", Event.ends_at >= now - timedelta(hours=12))
-        .order_by(Event.starts_at)
-    ).all()
+        .where(Event.status == "published")
+    )
+    if not include_past:
+        query = query.where(Event.ends_at >= now - timedelta(hours=12))
+    # Upcoming events first, then the most recent past events. Never expose drafts.
+    if include_past:
+        query = query.order_by(
+            case((Event.ends_at >= now, 0), else_=1),
+            case((Event.ends_at >= now, Event.starts_at)),
+            Event.starts_at.desc(),
+        )
+    else:
+        query = query.order_by(Event.starts_at)
+    events = db.scalars(query).all()
     counts = svc.registered_counts(db, [e.id for e in events])
     return [svc.public_event_out(e, counts.get(e.id, 0), now) for e in events]
 

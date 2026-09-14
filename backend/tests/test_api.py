@@ -255,3 +255,26 @@ def test_password_reset_link(db):
     again = client_for().post("/api/auth/reset-password", json={"token": token, "new_password": "another-password-22"})
     assert again.status_code == 400  # single use
     client_for("staff@test.com", "brand-new-password-1")
+
+
+def test_public_catalogue_includes_past_published_events_only(db):
+    make_user(db, "super@test.com", "super_admin")
+    admin = client_for("super@test.com")
+    future_day = (datetime.now(RIYADH) + timedelta(days=7)).date().isoformat()
+    past_day = (datetime.now(RIYADH) - timedelta(days=3)).date().isoformat()
+    upcoming = create_event(admin, title="Upcoming Scientific Day", sessions=[{"date": future_day, "start": "09:00", "end": "12:00"}])
+    past = create_event(admin, title="Past Scientific Day", sessions=[{"date": past_day, "start": "09:00", "end": "12:00"}])
+    create_event(admin, title="Private Draft", status="draft")
+    create_event(admin, title="Closed Event", status="closed")
+    public = client_for()
+    default_feed = public.get("/api/public/events")
+    assert default_feed.status_code == 200
+    assert [e["id"] for e in default_feed.json()] == [upcoming["id"]]
+    catalogue = public.get("/api/public/events?include_past=true")
+    assert catalogue.status_code == 200
+    assert [e["id"] for e in catalogue.json()] == [upcoming["id"], past["id"]]
+    assert [e["registration_state"] for e in catalogue.json()] == ["open", "ended"]
+    # Adding a past event to the catalogue must never reopen registration.
+    response = public.post(f"/api/public/events/{past['slug']}/register", json=attendee(9))
+    assert response.status_code == 409
+    assert response.json()["detail"]["code"] == "registration_ended"

@@ -1,0 +1,1259 @@
+.experience {
+  --paper: #f4f6f9;
+}
+.experience header {
+  background: #003868;
+  border-bottom: 1px solid #ffffff1a;
+  color: #fff;
+  backdrop-filter: blur(16px);
+}
+.experience header a {
+  color: #fff;
+}
+.experience header nav a[aria-current="page"] {
+  color: #fff;
+}
+.experience header nav a[aria-current="page"]:after {
+  background: #7dc8f7;
+  height: 2px;
+}
+.experience header button {
+  color: #fff !important;
+  background: #ffffff0d !important;
+}
+.experience header a[href="/login"] {
+  background: #ffffff12;
+  border: 1px solid #ffffff25;
+}
+.experience header nav[id="mobile-navigation"] {
+  background: #003868;
+}
+.experience header nav[id="mobile-navigation"] a {
+  border-color: #ffffff15;
+}
+.frame {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: 44px;
+}
+.experience .hero {
+  position: relative;
+  background: #003868;
+  color: #fff;
+  isolation: isolate;
+  overflow: hidden;
+}
+.heroBackdrop {
+  object-fit: cover;
+  object-position: center 46%;
+  z-index: -3;
+}
+.heroShade {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: linear-gradient(
+    180deg,
+    #003868b8 0%,
+    #003868c2 50%,
+    #003868ed 100%
+  );
+}
+.heroShade:after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #00386826, transparent 40%, #00386838);
+}
+.heroInner {
+  position: relative;
+  padding-top: 28px;
+  padding-bottom: 144px;
+}
+.heroTopline {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: #d2e4f5;
+}
+.heroTopline > span:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  letter-spacing: 0;
+}
+.heroStatement {
+  text-align: center;
+  max-width: 1040px;
+  margin: 68px auto 0;
+}
+.kicker {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #004d99;
+}
+.heroStatement .kicker {
+  color: #d6eaff;
+}
+.experience .heroStatement h1 {
+  color: #fff;
+  font-size: clamp(40px, 4.8vw, 68px);
+  font-weight: 500;
+  letter-spacing: -2.7px;
+  line-height: 1.2;
+  margin-top: 20px;
+}
+.heroStatement h1 > span {
+  color: #7dc8f7;
+}
+.heroIntro {
+  color: #e0eaf4;
+  font-size: 15px;
+  line-height: 1.9;
+  max-width: 625px;
+  margin: 23px auto 0 !important;
+}
+.whiteButton,
+.blueButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 29px;
+  padding: 15px 25px;
+  background: #fff;
+  color: #003868;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  transition:
+    transform 0.25s,
+    background 0.25s;
+}
+.whiteButton:hover {
+  background: #e8f3ff;
+  transform: translateY(-3px);
+}
+.heroStatement > .whiteButton {
+  margin-top: 28px;
+}
+.blueButton {
+  background: #004d99;
+  color: #fff;
+  border-color: #004d99;
+}
+.scrollLink {
+  margin: 36px auto 0;
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 12px;
+  color: #cfdef0;
+  font-size: 10px;
+}
+.scrollLink svg {
+  animation: nudge 2.5s ease-in-out 2;
+}
+@keyframes nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+.agendaSection {
+  display: flow-root;
+  background: var(--paper);
+  position: relative;
+  z-index: 2;
+  padding-bottom: 44px;
+}
+.agenda {
+  position: relative;
+  margin-top: -90px;
+  background: #fff;
+  border: 1px solid #dfe7f0;
+  border-top: 4px solid #004d99;
+  box-shadow: 0 20px 50px #0038680b;
+}
+.agendaHeader {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 35px 25px;
+}
+.index {
+  display: block;
+  color: #63758b;
+  font-size: 10px;
+  letter-spacing: 1.3px;
+}
+.experience .agendaHeader h2 {
+  font-size: 27px;
+  font-weight: 500;
+  letter-spacing: -0.6px;
+  margin-top: 7px;
+}
+.agendaHeader p {
+  color: #63758b;
+  font-size: 11px;
+  margin-top: 4px;
+}
+.textLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #004d99;
+  font-weight: 600;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.scheduleRow {
+  display: grid;
+  grid-template-columns: 102px 1fr 180px 46px;
+  align-items: center;
+  gap: 28px;
+  padding: 28px 35px;
+  border-top: 1px solid #e3eaf2;
+  transition: background 0.25s;
+}
+.scheduleRow:hover {
+  background: #f4f8fe;
+}
+.scheduleDate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-inline-end: 1px solid #dce6f1;
+  padding-inline-end: 26px;
+  color: #003868;
+}
+.scheduleDate strong {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 43px;
+  letter-spacing: -2px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.scheduleDate > span {
+  font-size: 10px;
+  color: #63758b;
+  margin-top: 5px;
+  text-align: center;
+}
+.openStatus,
+.pastStatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 9px;
+  font-weight: 600;
+  color: #004d99;
+}
+.openStatus > i,
+.pastStatus > i {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.pastStatus {
+  color: #738094;
+}
+.experience .scheduleTitle h3 {
+  font-size: 19px;
+  font-weight: 500;
+  margin-top: 5px;
+  line-height: 1.5;
+}
+.scheduleTitle p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 11px;
+  color: #63758b;
+}
+.scheduleTitle p svg {
+  flex-shrink: 0;
+}
+.scheduleMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: flex-start;
+  font-size: 11px;
+  color: #63758b;
+}
+.scheduleMeta > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.scheduleMeta .rowAction {
+  color: #004d99;
+  font-weight: 700;
+}
+.rowArrow {
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  border: 1px solid #d4e0ef;
+  border-radius: 50%;
+  color: #004d99;
+  transition:
+    background 0.25s,
+    color 0.25s;
+}
+.scheduleRow:hover .rowArrow {
+  background: #004d99;
+  color: #fff;
+  border-color: #004d99;
+}
+.agendaFooter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 35px;
+  font-size: 10px;
+  color: #738094;
+  border-top: 1px solid #e3eaf2;
+  background: #fafbfd;
+}
+.agendaFooter > span:last-child {
+  margin-inline-start: auto;
+}
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 15px;
+  padding: 40px 25px;
+  border-top: 1px solid #e3eaf2;
+}
+.empty p {
+  color: #63758b;
+}
+.experience .story {
+  background: var(--paper);
+  padding-top: 58px;
+  padding-bottom: 66px;
+}
+.storyHeading {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 50px;
+}
+.storyHeading > .index {
+  padding-top: 4px;
+}
+.experience .storyHeading h2 {
+  font-size: clamp(28px, 3.3vw, 44px);
+  white-space: pre-line;
+  line-height: 1.5;
+  letter-spacing: -1.4px;
+  font-weight: 500;
+  margin-top: 15px;
+}
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 45px;
+  margin-top: 46px;
+  padding-top: 30px;
+  border-top: 1px solid #d9e3ef;
+}
+.principle {
+  position: relative;
+  padding-inline-start: 35px;
+}
+.principleIndex {
+  font-family: var(--font-manrope), sans-serif;
+  position: absolute;
+  inset-inline-start: 0;
+  top: 8px;
+  font-size: 10px;
+  color: #8496ac;
+}
+.experience .principle h3 {
+  font-size: 26px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+.principle p {
+  color: #63758b;
+  font-size: 12px;
+  line-height: 1.8;
+  margin-top: 9px;
+  max-width: 270px;
+}
+.photoRail {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 0.7fr;
+  gap: 16px;
+  align-items: end;
+  margin-top: 45px;
+}
+.photoRail > div {
+  position: relative;
+  overflow: hidden;
+  background: #dce7f3;
+}
+.photoRail img {
+  object-fit: cover;
+  transition: transform 0.75s;
+}
+.photoRail > div:hover img {
+  transform: scale(1.035);
+}
+.photoTall {
+  height: 325px;
+}
+.photoWide {
+  height: 260px;
+}
+.photoSmall {
+  height: 200px;
+}
+.railCaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 10px;
+  color: #738094;
+  margin-top: 16px;
+}
+.railCaption a {
+  display: inline-flex;
+  gap: 9px;
+  align-items: center;
+  color: #004d99;
+  font-size: 11px;
+  font-weight: 600;
+}
+.experience .guide {
+  background: #fff;
+  border-top: 1px solid #e3eaf2;
+  padding-block: 75px;
+}
+.guideGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+}
+.experience .guide h2 {
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -0.8px;
+  white-space: pre-line;
+  margin-top: 16px;
+}
+.journeyList {
+  list-style: none;
+  padding: 0;
+  margin: 29px 0 0;
+  display: grid;
+  gap: 26px;
+}
+.journeyList li {
+  display: flex;
+  gap: 20px;
+  position: relative;
+}
+.journeyList li > span {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  align-self: flex-start;
+  width: 32px;
+  height: 32px;
+  background: #eff4fb;
+  border: 1px solid #dce7f5;
+  color: #004d99;
+  border-radius: 50%;
+  font-size: 10px;
+  font-family: var(--font-manrope), sans-serif;
+}
+.journeyList li:not(:last-child):before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 15px;
+  width: 1px;
+  top: 40px;
+  bottom: -19px;
+  background: #dce7f5;
+}
+.experience .journeyList h3 {
+  font-size: 16px;
+  font-weight: 600;
+}
+.journeyList p {
+  font-size: 12px;
+  color: #63758b;
+  line-height: 1.9;
+  margin-top: 7px;
+  max-width: 390px;
+}
+.faqPanel {
+  border-inline-start: 1px solid #e3eaf2;
+  padding-inline-start: 60px;
+  scroll-margin-top: 110px;
+}
+.faqList {
+  margin-top: 27px;
+}
+.faqList details {
+  border-top: 1px solid #e0e8f2;
+}
+.faqList details:last-child {
+  border-bottom: 1px solid #e0e8f2;
+}
+.faqList summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+  padding-block: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.faqList summary::-webkit-details-marker {
+  display: none;
+}
+.faqList summary svg {
+  color: #004d99;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.faqList details[open] summary svg {
+  transform: rotate(45deg);
+}
+.faqList details p {
+  font-size: 12px;
+  color: #63758b;
+  line-height: 1.9;
+  padding-bottom: 20px;
+}
+.experience .closing {
+  position: relative;
+  padding: 70px 24px 54px;
+  background: #003868;
+  text-align: center;
+  color: #fff;
+  overflow: hidden;
+}
+.closingPetal {
+  position: absolute;
+  inset-inline-end: -140px;
+  bottom: -280px;
+  width: 730px;
+  opacity: 0.025;
+}
+.closingContent {
+  position: relative;
+  z-index: 1;
+}
+.closing .kicker {
+  color: #9fcbf3;
+}
+.experience .closing h2 {
+  color: #fff;
+  font-size: 60px;
+  font-weight: 500;
+  letter-spacing: -2px;
+  line-height: 1.3;
+  white-space: pre-line;
+  margin-top: 16px;
+}
+.closing .whiteButton {
+  margin-top: 28px;
+}
+.closingTop {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  gap: 8px;
+  margin: 33px auto 0;
+  font-size: 10px;
+  color: #bdd2e8;
+}
+.closingTop svg {
+  transform: rotate(180deg);
+}
+/* The directory has a compact editorial masthead, distinct from the homepage hero. */
+.directory {
+  padding: 45px 0 39px;
+  background: #f4f6f9;
+  border-bottom: 1px solid #dfe7f0;
+}
+.directoryTop {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 11px;
+  color: #63758b;
+}
+.directoryTop a {
+  color: #004d99;
+}
+.directoryHeading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-top: 25px;
+}
+.directory h1 {
+  font-size: 48px;
+  font-weight: 500;
+  letter-spacing: -1.7px;
+  line-height: 1.4;
+}
+.directoryHeading p {
+  color: #63758b;
+  font-size: 14px;
+  max-width: 680px;
+  margin-top: 13px;
+  line-height: 1.9;
+}
+.directoryCount {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  text-align: end;
+  border-inline-start: 1px solid #cedae9;
+  padding-inline-start: 40px;
+}
+.directoryCount strong {
+  font-family: var(--font-manrope), sans-serif;
+  font-size: 64px;
+  line-height: 1.1;
+  font-weight: 400;
+  color: #004d99;
+  letter-spacing: -3px;
+}
+.directoryCount span {
+  font-size: 11px;
+  color: #63758b;
+  margin-top: 5px;
+}
+:global(html[lang="ar"]) .heroTopline {
+  font-size: 12px;
+  letter-spacing: 0;
+}
+:global(html[lang="ar"]) .experience .kicker {
+  font-size: 13px;
+  letter-spacing: 0;
+}
+:global(html[lang="ar"]) .experience .heroStatement h1 {
+  font-size: 78px;
+  font-weight: 700;
+  line-height: 1.32;
+  letter-spacing: 0;
+}
+:global(html[lang="ar"]) .experience .heroIntro {
+  font-size: 19px;
+  line-height: 1.9;
+  max-width: 620px;
+}
+:global(html[lang="ar"]) .experience .whiteButton,
+:global(html[lang="ar"]) .experience .blueButton {
+  font-size: 16px;
+}
+:global(html[lang="ar"]) .experience .scrollLink {
+  font-size: 13px;
+}
+:global(html[lang="ar"]) .experience .index {
+  font-size: 12px;
+  letter-spacing: 0;
+}
+:global(html[lang="ar"]) .experience .agendaHeader h2 {
+  font-size: 32px;
+  letter-spacing: 0;
+  font-weight: 700;
+}
+:global(html[lang="ar"]) .experience .agendaHeader p,
+:global(html[lang="ar"]) .experience .textLink {
+  font-size: 14px;
+}
+:global(html[lang="ar"]) .experience .scheduleTitle h3 {
+  font-size: 23px;
+  font-weight: 700;
+}
+:global(html[lang="ar"]) .experience .scheduleTitle p {
+  font-size: 13px;
+}
+:global(html[lang="ar"]) .experience .openStatus,
+:global(html[lang="ar"]) .experience .pastStatus {
+  font-size: 12px;
+}
+:global(html[lang="ar"]) .experience .scheduleMeta {
+  font-size: 14px;
+}
+:global(html[lang="ar"]) .experience .agendaFooter {
+  font-size: 12px;
+}
+:global(html[lang="ar"]) .experience .storyHeading h2 {
+  font-size: 47px;
+  line-height: 1.6;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+:global(html[lang="ar"]) .experience .principle h3 {
+  font-size: 36px;
+  font-weight: 500;
+}
+:global(html[lang="ar"]) .experience .principle p {
+  font-size: 15px;
+}
+:global(html[lang="ar"]) .experience .railCaption {
+  font-size: 12px;
+}
+:global(html[lang="ar"]) .experience .railCaption a {
+  font-size: 13px;
+}
+:global(html[lang="ar"]) .experience .guide h2 {
+  font-size: 39px;
+  letter-spacing: 0;
+  font-weight: 500;
+}
+:global(html[lang="ar"]) .experience .journeyList h3 {
+  font-size: 21px;
+  font-weight: 700;
+}
+:global(html[lang="ar"]) .experience .journeyList p {
+  font-size: 15px;
+}
+:global(html[lang="ar"]) .experience .faqList summary {
+  font-size: 16px;
+}
+:global(html[lang="ar"]) .experience .faqList details p {
+  font-size: 14px;
+}
+:global(html[lang="ar"]) .experience .closing h2 {
+  font-size: 72px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+:global(html[lang="ar"]) .directory h1 {
+  font-size: 56px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+:global(html[lang="ar"]) .directoryHeading p {
+  font-size: 17px;
+}
+:global(html[lang="ar"]) .directoryCount span {
+  font-size: 14px;
+}
+:global(html[dir="rtl"]) .directoryTop svg {
+  transform: scaleX(-1);
+}
+@media (max-width: 1050px) {
+  .frame {
+    padding-inline: 32px;
+  }
+  .heroStatement {
+    margin-top: 55px;
+  }
+  .heroStatement h1 {
+    font-size: 56px;
+  }
+  .scheduleRow {
+    grid-template-columns: 83px 1fr 140px 36px;
+    gap: 21px;
+    padding-inline: 28px;
+  }
+  .scheduleDate {
+    padding-inline-end: 19px;
+  }
+  .scheduleDate strong {
+    font-size: 37px;
+  }
+  .experience .scheduleTitle h3 {
+    font-size: 17px;
+  }
+  .rowArrow {
+    width: 36px;
+    height: 36px;
+  }
+  .storyHeading {
+    grid-template-columns: 0.65fr 2fr;
+    gap: 30px;
+  }
+  .experience .storyHeading h2 {
+    font-size: 34px;
+  }
+  .principles {
+    gap: 25px;
+  }
+  .photoTall {
+    height: 270px;
+  }
+  .photoWide {
+    height: 220px;
+  }
+  .photoSmall {
+    height: 165px;
+  }
+  .guideGrid {
+    gap: 50px;
+  }
+  .faqPanel {
+    padding-inline-start: 35px;
+  }
+  :global(html[lang="ar"]) .experience .heroStatement h1 {
+    font-size: 67px;
+  }
+  :global(html[lang="ar"]) .experience .storyHeading h2 {
+    font-size: 38px;
+  }
+  :global(html[lang="ar"]) .experience .scheduleTitle h3 {
+    font-size: 20px;
+  }
+}
+@media (max-width: 760px) {
+  .frame {
+    padding-inline: 23px;
+  }
+  .heroInner {
+    padding-top: 20px;
+    padding-bottom: 107px;
+  }
+  .heroTopline {
+    font-size: 8px;
+    letter-spacing: 0.4px;
+  }
+  .heroTopline > span:last-child {
+    display: none;
+  }
+  .heroStatement {
+    margin-top: 47px;
+  }
+  .heroStatement .kicker {
+    font-size: 9px;
+  }
+  .experience .heroStatement h1 {
+    font-size: 39px;
+    letter-spacing: -1.4px;
+    line-height: 1.28;
+    margin-top: 17px;
+  }
+  .heroIntro {
+    font-size: 13px;
+    line-height: 1.9;
+    margin-top: 18px !important;
+  }
+  .whiteButton,
+  .blueButton {
+    padding: 12px 21px;
+    font-size: 12px;
+    gap: 23px;
+  }
+  .heroStatement > .whiteButton {
+    margin-top: 23px;
+  }
+  .scrollLink {
+    margin-top: 27px;
+    font-size: 10px;
+  }
+  .heroBackdrop {
+    object-position: 40% center;
+  }
+  .agendaSection {
+  display: flow-root;
+    padding-bottom: 27px;
+  }
+  .agenda {
+    margin-top: -55px;
+  }
+  .agendaHeader {
+    padding: 22px 20px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .experience .agendaHeader h2 {
+    font-size: 24px;
+    margin-top: 8px;
+  }
+  .agendaHeader p {
+    font-size: 10px;
+  }
+  .textLink {
+    font-size: 11px;
+  }
+  .scheduleRow {
+    grid-template-columns: 57px 1fr 30px;
+    gap: 14px;
+    padding: 21px 18px;
+    align-items: start;
+  }
+  .scheduleDate {
+    padding-inline-end: 12px;
+    border-inline-end: 1px solid #dce6f1;
+    grid-row: 1 / span 2;
+    margin-top: 8px;
+  }
+  .scheduleDate strong {
+    font-size: 31px;
+  }
+  .scheduleDate > span {
+    font-size: 8px;
+    line-height: 1.8;
+  }
+  .experience .scheduleTitle h3 {
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .scheduleTitle p {
+    font-size: 10px;
+    line-height: 1.8;
+    gap: 5px;
+    align-items: flex-start;
+  }
+  .scheduleTitle p svg {
+    margin-top: 3px;
+  }
+  .openStatus,
+  .pastStatus {
+    font-size: 9px;
+  }
+  .scheduleMeta {
+    grid-column: 2 / span 2;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 7px;
+    font-size: 9px;
+  }
+  .scheduleMeta svg {
+    width: 14px;
+  }
+  .rowArrow {
+    grid-row: 1;
+    grid-column: 3;
+    width: 28px;
+    height: 28px;
+    margin-top: 8px;
+  }
+  .rowArrow svg {
+    width: 16px;
+  }
+  .agendaFooter {
+    padding: 12px 18px;
+    font-size: 9px;
+  }
+  .agendaFooter > span:last-child {
+    display: none;
+  }
+  .experience .story {
+    padding-top: 29px;
+    padding-bottom: 43px;
+  }
+  .storyHeading {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .storyHeading > .index {
+    padding: 0;
+  }
+  .experience .storyHeading h2 {
+    font-size: 27px;
+    line-height: 1.6;
+    letter-spacing: -0.6px;
+  }
+  .storyHeading .kicker {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+  .principles {
+    margin-top: 29px;
+    padding-top: 22px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .principle {
+    padding-inline-start: 36px;
+    border-bottom: 1px solid #dfe7f1;
+    padding-bottom: 20px;
+  }
+  .principle:last-child {
+    border: 0;
+    padding-bottom: 0;
+  }
+  .experience .principle h3 {
+    font-size: 25px;
+  }
+  .principle p {
+    max-width: none;
+    font-size: 12px;
+    margin-top: 6px;
+  }
+  .photoRail {
+    margin-top: 26px;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 10px;
+  }
+  .photoTall {
+    height: 220px;
+  }
+  .photoWide {
+    height: 178px;
+  }
+  .photoSmall {
+    display: none;
+  }
+  .railCaption {
+    font-size: 9px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 11px;
+  }
+  .railCaption a {
+    font-size: 10px;
+  }
+  .experience .guide {
+    padding-block: 43px;
+  }
+  .guideGrid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .experience .guide h2 {
+    font-size: 29px;
+    margin-top: 12px;
+  }
+  .journeyList {
+    gap: 22px;
+    margin-top: 24px;
+  }
+  .journeyList h3 {
+    font-size: 15px;
+  }
+  .journeyList p {
+    font-size: 12px;
+  }
+  .faqPanel {
+    border-inline-start: 0;
+    border-top: 1px solid #e0e8f2;
+    padding-inline-start: 0;
+    padding-top: 33px;
+  }
+  .faqList {
+    margin-top: 23px;
+  }
+  .faqList summary {
+    font-size: 13px;
+    padding-block: 19px;
+  }
+  .experience .closing {
+    padding: 45px 24px 37px;
+  }
+  .closing .kicker {
+    font-size: 8px;
+  }
+  .experience .closing h2 {
+    font-size: 43px;
+    letter-spacing: -1.2px;
+  }
+  .closingTop {
+    font-size: 10px;
+    margin-top: 26px;
+  }
+  .closingPetal {
+    width: 450px;
+    inset-inline-end: -160px;
+    bottom: -160px;
+  }
+  .directory {
+    padding-block: 27px 32px;
+  }
+  .directoryHeading {
+    margin-top: 20px;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .directory h1 {
+    font-size: 31px;
+    line-height: 1.3;
+    letter-spacing: -0.8px;
+  }
+  .directoryHeading p {
+    font-size: 12px;
+    margin-top: 12px;
+  }
+  .directoryCount {
+    padding-inline-start: 17px;
+    min-width: 69px;
+  }
+  .directoryCount strong {
+    font-size: 40px;
+    letter-spacing: -1.5px;
+  }
+  .directoryCount span {
+    font-size: 9px;
+    max-width: 64px;
+  }
+  .directoryTop {
+    font-size: 10px;
+  }
+  :global(html[lang="ar"]) .heroTopline {
+    font-size: 11px;
+  }
+  :global(html[lang="ar"]) .experience .kicker {
+    font-size: 12px;
+  }
+  :global(html[lang="ar"]) .experience .heroStatement h1 {
+    font-size: 44px;
+    line-height: 1.45;
+    font-weight: 700;
+  }
+  :global(html[lang="ar"]) .experience .heroIntro {
+    font-size: 16px;
+  }
+  :global(html[lang="ar"]) .experience .whiteButton {
+    font-size: 15px;
+  }
+  :global(html[lang="ar"]) .experience .scrollLink {
+    font-size: 12px;
+  }
+  :global(html[lang="ar"]) .experience .agendaHeader h2 {
+    font-size: 27px;
+  }
+  :global(html[lang="ar"]) .experience .agendaHeader p,
+  :global(html[lang="ar"]) .experience .textLink {
+    font-size: 12px;
+  }
+  :global(html[lang="ar"]) .experience .scheduleTitle h3 {
+    font-size: 18px;
+  }
+  :global(html[lang="ar"]) .experience .scheduleTitle p {
+    font-size: 11px;
+  }
+  :global(html[lang="ar"]) .experience .scheduleMeta {
+    font-size: 11px;
+  }
+  :global(html[lang="ar"]) .experience .openStatus,
+  :global(html[lang="ar"]) .experience .pastStatus {
+    font-size: 10px;
+  }
+  :global(html[lang="ar"]) .experience .agendaFooter {
+    font-size: 11px;
+  }
+  :global(html[lang="ar"]) .experience .storyHeading h2 {
+    font-size: 31px;
+    line-height: 1.65;
+  }
+  :global(html[lang="ar"]) .experience .principle h3 {
+    font-size: 31px;
+  }
+  :global(html[lang="ar"]) .experience .principle p {
+    font-size: 14px;
+  }
+  :global(html[lang="ar"]) .experience .railCaption {
+    font-size: 10px;
+  }
+  :global(html[lang="ar"]) .experience .guide h2 {
+    font-size: 33px;
+  }
+  :global(html[lang="ar"]) .experience .journeyList h3 {
+    font-size: 20px;
+  }
+  :global(html[lang="ar"]) .experience .journeyList p {
+    font-size: 14px;
+  }
+  :global(html[lang="ar"]) .experience .faqList summary {
+    font-size: 15px;
+  }
+  :global(html[lang="ar"]) .experience .closing h2 {
+    font-size: 52px;
+  }
+  :global(html[lang="ar"]) .directory h1 {
+    font-size: 34px;
+  }
+  :global(html[lang="ar"]) .directoryHeading p {
+    font-size: 15px;
+  }
+  :global(html[lang="ar"]) .directoryCount span {
+    font-size: 11px;
+  }
+}
+@media (max-width: 380px) {
+  .frame {
+    padding-inline: 17px;
+  }
+  .experience .heroStatement h1 {
+    font-size: 34px;
+  }
+  .heroIntro {
+    font-size: 12px;
+  }
+  .scheduleRow {
+    grid-template-columns: 47px 1fr 25px;
+    gap: 10px;
+    padding-inline: 13px;
+  }
+  .scheduleDate strong {
+    font-size: 28px;
+  }
+  .scheduleDate {
+    padding-inline-end: 9px;
+  }
+  .rowArrow {
+    width: 25px;
+    height: 25px;
+  }
+  .scheduleMeta {
+    flex-wrap: wrap;
+  }
+  .directoryHeading {
+    flex-direction: column;
+    gap: 19px;
+  }
+  .directoryCount {
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+    border: 0;
+    padding: 0;
+  }
+  .directoryCount span {
+    max-width: none;
+  }
+  .experience .storyHeading h2 {
+    font-size: 24px;
+  }
+  :global(html[lang="ar"]) .experience .heroStatement h1 {
+    font-size: 38px;
+  }
+  :global(html[lang="ar"]) .experience .storyHeading h2 {
+    font-size: 28px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .experience *,
+  .experience *:before,
+  .experience *:after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .whiteButton:hover,
+  .photoRail > div:hover img {
+    transform: none;
+  }
+}
