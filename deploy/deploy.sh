@@ -2,12 +2,19 @@
 # Deploy the latest main branch on the server: pull, rebuild images, restart. Migrations run on API start.
 # Usage (on the server): ~/myclinic-event/deploy/deploy.sh
 set -euo pipefail
-cd "$(dirname "$0")/.."
+SELF="$(cd "$(dirname "$0")" && pwd)/$(basename "$0")"
+cd "$(dirname "$SELF")/.."
 
 echo "== pulling latest main"
 git fetch --quiet origin main
 git reset --hard --quiet origin/main
 git log --oneline -1
+
+# The pull may have replaced this very file; bash keeps running the old copy, so hand over
+# to the fresh one once. The second pass finds nothing new to pull and continues below.
+if [ "${DEPLOY_SH_REEXEC:-0}" != 1 ]; then
+  DEPLOY_SH_REEXEC=1 exec "$SELF" "$@"
+fi
 
 echo "== building and restarting containers"
 docker compose up -d --build --remove-orphans
