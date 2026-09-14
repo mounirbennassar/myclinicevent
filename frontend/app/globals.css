@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+/* My Clinic brand tokens (from the My Clinic design system). */
+@theme {
+  --color-navy: #003868;
+  --color-midnight: #0b1f3a;
+  --color-action: #004d99;
+  --color-action-hover: #00294d;
+  --color-tint: #f2f6fa;
+  --color-hairline: #e3e6ea;
+
+  --color-ink-900: #24272b;
+  --color-ink-700: #3d434d;
+  --color-ink-500: #797c82;
+  --color-ink-300: #b9bcc1;
+  --color-ink-200: #d6d8dc;
+  --color-ink-100: #edeef0;
+  --color-ink-50: #f6f7f8;
+
+  --color-brand-teal: #007d79;
+  --color-brand-teal-mid: #05b8b5;
+  --color-brand-teal-soft: #56dbdb;
+  --color-brand-teal-tint: #d2fbfb;
+
+  --color-success: #178038;
+  --color-success-tint: #defbe6;
+  --color-warning: #a66712;
+  --color-warning-strong: #f8b037;
+  --color-warning-tint: #ffefcc;
+  --color-danger: #d42a35;
+  --color-danger-strong: #e7343f;
+  --color-danger-tint: #fdecee;
+  --color-info: #1e75b8;
+  --color-info-tint: #e3f0fb;
+
+  --shadow-card: 0 2px 8px rgba(0, 56, 104, 0.08);
+  --shadow-raised: 0 6px 20px rgba(0, 56, 104, 0.14);
+  --shadow-overlay: 0 16px 48px rgba(11, 31, 58, 0.28);
+
+  --ease-brand: cubic-bezier(0.2, 0.7, 0.3, 1);
+
+  --animate-fade-up: fade-up 0.35s var(--ease-brand) both;
+  --animate-pop: pop 0.3s var(--ease-brand) both;
+  --animate-pulse-soft: pulse-soft 1.8s ease-in-out infinite;
+  --animate-scan-line: scan-line 2.4s ease-in-out infinite;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes pop {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes pulse-soft {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+  @keyframes scan-line {
+    0% { top: 12%; }
+    50% { top: 84%; }
+    100% { top: 12%; }
+  }
+}
+
+@theme inline {
+  --font-sans: var(--font-montserrat), -apple-system, "Segoe UI", sans-serif;
+  --font-ar: var(--font-tajawal), "Segoe UI", sans-serif;
+}
+
+/* Element defaults go in the base layer so Tailwind utilities (e.g. text-white on a heading) can override them.
+   Unlayered CSS would beat every utility in Tailwind v4. */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-ink-50);
+    color: var(--color-ink-700);
+    font-family: var(--font-sans);
+  }
+
+  /* Arabic runs on Tajawal (brand alternate for GE SS Two) with taller lines. */
+  html[lang="ar"] body {
+    font-family: var(--font-ar);
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4 {
+    color: var(--color-navy);
+  }
+
+  :focus-visible {
+    outline: 3px solid rgb(0 77 153 / 0.35);
+    outline-offset: 2px;
+  }
+}
+
+/* Numbers, codes and times stay in the Latin face so they line up in both languages. */
+@layer components {
+  .num {
+    font-family: var(--font-sans);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@media print {
+  [data-noprint] {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+}

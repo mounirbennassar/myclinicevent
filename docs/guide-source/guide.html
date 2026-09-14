@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>منصة عيادتي للفعاليات: دليل عمل النظام</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Montserrat:wght@500;700;800&display=block" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 18mm 16mm 20mm 16mm; }
+  :root {
+    --navy: #003868; --midnight: #0b1f3a; --action: #004d99; --teal: #007d79; --teal-mid: #05b8b5;
+    --teal-tint: #d2fbfb; --tint: #f2f6fa; --hair: #e3e6ea; --ink: #3d434d; --muted: #797c82;
+    --success: #178038; --success-tint: #defbe6; --warning: #a66712; --warning-tint: #fff3d6;
+    --danger: #d42a35; --danger-tint: #fdecee;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: 'Tajawal', 'Geeza Pro', sans-serif; color: var(--ink); font-size: 11.5pt; line-height: 1.75; }
+  .num, .en { font-family: 'Montserrat', 'Tajawal', sans-serif; font-variant-numeric: tabular-nums; }
+  h1, h2, h3 { color: var(--navy); font-weight: 800; line-height: 1.35; break-after: avoid; }
+  h1 { font-size: 22pt; margin: 0 0 10pt; padding-bottom: 6pt; border-bottom: 3px solid var(--teal-mid); }
+  h1 .n { color: var(--teal); margin-inline-end: 8pt; }
+  h2 { font-size: 15pt; margin: 18pt 0 6pt; }
+  h3 { font-size: 12.5pt; margin: 12pt 0 4pt; color: var(--action); }
+  p { margin: 0 0 8pt; }
+  ul, ol { margin: 0 0 8pt; padding-inline-start: 20pt; }
+  li { margin-bottom: 3pt; }
+  strong { color: var(--midnight); font-weight: 700; }
+  table { width: 100%; border-collapse: collapse; margin: 6pt 0 12pt; font-size: 10.5pt; break-inside: avoid; }
+  thead { display: table-header-group; }
+  th { background: var(--navy); color: #fff; font-weight: 700; text-align: start; padding: 6pt 8pt; }
+  td { padding: 6pt 8pt; border-bottom: 1px solid var(--hair); vertical-align: top; }
+  tr:nth-child(even) td { background: #fafbfc; }
+  .section { break-before: page; }
+  .callout { border-radius: 10pt; padding: 10pt 14pt; margin: 8pt 0 12pt; break-inside: avoid; border-inline-start: 5px solid var(--teal); background: var(--tint); }
+  .callout.rule { border-color: var(--navy); background: #e3edf7; }
+  .callout.warn { border-color: var(--warning); background: var(--warning-tint); }
+  .callout.ok { border-color: var(--success); background: var(--success-tint); }
+  .callout.bad { border-color: var(--danger); background: var(--danger-tint); }
+  .callout .t { font-weight: 800; color: var(--midnight); margin-bottom: 2pt; }
+  .kv { display: grid; grid-template-columns: 1fr 1fr; gap: 8pt; margin: 8pt 0 12pt; }
+  .card { border: 1px solid var(--hair); border-radius: 10pt; padding: 10pt 12pt; break-inside: avoid; }
+  .card .h { font-weight: 800; color: var(--navy); margin-bottom: 4pt; }
+  .card.roles { display: grid; grid-template-columns: 1fr 1fr; gap: 8pt; border: 0; padding: 0; }
+
+  /* Cover */
+  .cover { height: 258mm; display: flex; flex-direction: column; background: var(--navy); color: #fff; border-radius: 14pt; padding: 22mm 20mm; position: relative; overflow: hidden; break-after: page; }
+  .cover .petal { position: absolute; bottom: -60mm; left: -40mm; width: 150mm; opacity: .07; }
+  .cover .logo { width: 62mm; background: #fff; border-radius: 6pt; padding: 0; }
+  .cover .eyebrow { margin-top: 26mm; font-family: 'Montserrat', sans-serif; letter-spacing: .18em; font-size: 9.5pt; color: #56dbdb; font-weight: 700; }
+  .cover h1 { color: #fff; border: 0; font-size: 34pt; margin: 6pt 0 4pt; line-height: 1.25; }
+  .cover .sub { font-size: 16pt; color: rgba(255,255,255,.8); margin-bottom: 8mm; }
+  .cover .en-title { font-family: 'Montserrat', sans-serif; font-size: 13pt; color: rgba(255,255,255,.7); font-weight: 600; }
+  .cover .meta { margin-top: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8mm; border-top: 1px solid rgba(255,255,255,.25); padding-top: 6mm; font-size: 10.5pt; }
+  .cover .meta .k { color: rgba(255,255,255,.6); font-size: 9pt; }
+  .cover .meta .v { font-weight: 700; }
+
+  /* TOC */
+  .toc ol { list-style: none; padding: 0; counter-reset: toc; }
+  .toc li { counter-increment: toc; display: flex; align-items: baseline; gap: 8pt; padding: 5pt 0; border-bottom: 1px dashed var(--hair); font-size: 12pt; }
+  .toc li::before { content: counter(toc); font-family: 'Montserrat'; font-weight: 800; color: var(--teal); width: 18pt; }
+
+  /* Flow */
+  .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6pt; margin: 10pt 0 14pt; break-inside: avoid; }
+  .flow .step { background: var(--tint); border: 1px solid var(--hair); border-radius: 9pt; padding: 8pt 8pt 7pt; text-align: center; position: relative; min-height: 46pt; }
+  .flow .step .i { display: inline-grid; place-items: center; width: 18pt; height: 18pt; border-radius: 50%; background: var(--navy); color: #fff; font-family: 'Montserrat'; font-weight: 800; font-size: 9pt; margin-bottom: 3pt; }
+  .flow .step .l { font-weight: 700; color: var(--midnight); font-size: 10.5pt; line-height: 1.3; }
+  .flow .step.hi { background: var(--teal-tint); border-color: var(--teal-mid); }
+
+  /* Timeline */
+  .timeline { position: relative; padding-inline-start: 22pt; margin: 6pt 0 10pt; }
+  .timeline::before { content: ""; position: absolute; inset-inline-start: 7pt; top: 4pt; bottom: 4pt; width: 2px; background: var(--hair); }
+  .timeline .tl { position: relative; margin-bottom: 9pt; break-inside: avoid; }
+  .timeline .tl::before { content: ""; position: absolute; inset-inline-start: -19.5pt; top: 6pt; width: 9pt; height: 9pt; border-radius: 50%; background: var(--teal-mid); border: 2px solid #fff; box-shadow: 0 0 0 1.5px var(--teal-mid); }
+  .timeline .tl .h { font-weight: 800; color: var(--navy); }
+
+  /* Decision */
+  .decision { display: grid; grid-template-columns: 1fr; gap: 6pt; margin: 8pt 0 12pt; break-inside: avoid; }
+  .decision .q { background: var(--navy); color: #fff; border-radius: 9pt; padding: 8pt 12pt; font-weight: 700; }
+  .decision .a { display: grid; grid-template-columns: 1fr 1fr; gap: 6pt; }
+  .decision .a > div { border-radius: 9pt; padding: 8pt 12pt; font-size: 10.5pt; }
+  .decision .yes { background: var(--success-tint); border: 1px solid #9fdcb2; }
+  .decision .no { background: var(--danger-tint); border: 1px solid #f3b7bd; }
+  .decision .a b { display: block; margin-bottom: 2pt; }
+  .decision .yes b { color: var(--success); } .decision .no b { color: var(--danger); }
+
+  .badge { display: inline-block; border-radius: 999pt; padding: 1pt 8pt; font-size: 9.5pt; font-weight: 700; margin-inline-end: 3pt; }
+  .b-teal { background: var(--teal-tint); color: var(--teal); } .b-navy { background: #e3edf7; color: var(--navy); }
+  .b-ok { background: var(--success-tint); color: var(--success); } .b-warn { background: var(--warning-tint); color: var(--warning); } .b-bad { background: var(--danger-tint); color: var(--danger); }
+  code { font-family: 'Montserrat', monospace; font-size: 9.5pt; background: var(--tint); padding: 1pt 5pt; border-radius: 4pt; direction: ltr; unicode-bidi: embed; color: var(--navy); }
+  .formula { text-align: center; font-size: 13pt; font-weight: 800; color: var(--navy); background: var(--tint); border-radius: 9pt; padding: 8pt; margin: 8pt 0 10pt; }
+  .small { font-size: 9.5pt; color: var(--muted); }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8pt; }
+  .screens { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6pt; margin: 6pt 0 12pt; }
+  .screens .s { border: 1px solid var(--hair); border-radius: 8pt; padding: 7pt 9pt; font-size: 10pt; break-inside: avoid; }
+  .screens .s .h { font-weight: 800; color: var(--navy); font-size: 10.5pt; }
+</style>
+</head>
+<body>
+
+<!-- ===== الغلاف ===== -->
+<section class="cover">
+  <img class="petal" src="flower-white.png" alt="">
+  <img class="logo" src="logo-frame.png" alt="My Clinic">
+  <div class="eyebrow">MY CLINIC EDUCATIONAL · EVENTS PLATFORM</div>
+  <h1>منصة عيادتي للفعاليات</h1>
+  <div class="sub">دليل عمل النظام من الألف إلى الياء: التسجيل، رصد الحضور برمز QR، وشهادات التعليم الطبي المستمر</div>
+  <div class="en-title">System guide: registration, QR attendance and CME certificates</div>
+  <div class="meta">
+    <div><div class="k">الجهة</div><div class="v">فريق فعاليات عيادتي</div></div>
+    <div><div class="k">الإصدار</div><div class="v"><span class="num" dir="ltr">v1.0</span> · سبتمبر 2026</div></div>
+    <div><div class="k">التصنيف</div><div class="v">داخلي</div></div>
+  </div>
+</section>
+
+<!-- ===== المحتويات ===== -->
+<section class="toc" style="break-after: page;">
+  <h1>المحتويات</h1>
+  <ol>
+    <li>نظرة عامة: ما الذي يفعله النظام؟</li>
+    <li>الأدوار والصلاحيات</li>
+    <li>رحلة الفعالية خطوة بخطوة</li>
+    <li>خوارزمية احتساب الحضور والأهلية</li>
+    <li>خوارزمية إصدار الشهادة</li>
+    <li>إجراءات يوم الفعالية لفريق البوابة</li>
+    <li>الحالات الخاصة وكيف يتعامل معها النظام</li>
+    <li>البريد الإلكتروني والتواصل</li>
+    <li>الأمان والحوكمة</li>
+    <li>البنية التقنية والنشر</li>
+    <li>قرارات مطلوبة من عيادتي قبل الإطلاق</li>
+    <li>مسرد المصطلحات</li>
+  </ol>
+  <div class="callout" style="margin-top: 18pt;">
+    <div class="t">كيف تقرأ هذا الدليل</div>
+    الفصول 1–3 للجميع (نظرة عامة ورحلة الفعالية). الفصلان 4–5 لمن يريد فهم الحسابات بدقة. الفصل 6 يُطبع ويُسلَّم لفريق البوابة يوم الفعالية. الفصول 8–11 للإدارة وتقنية المعلومات.
+  </div>
+</section>
+
+<!-- ===== 1 ===== -->
+<section>
+  <h1><span class="n num">1</span>نظرة عامة: ما الذي يفعله النظام؟</h1>
+  <p>منصة عيادتي للفعاليات نظام واحد متكامل لإدارة الفعاليات التعليمية الطبية: من نشر الفعالية على موقع عيادتي، إلى تسجيل المشاركين، إلى رصد حضورهم عبر رمز QR يُمسح بكاميرا الجوال، إلى إصدار شهادات التعليم الطبي المستمر (CME) تلقائيًا لمن يستوفي شرط الحضور. النظام <strong>قابل لإعادة الاستخدام</strong> لكل فعالية قادمة دون أي تطوير إضافي.</p>
+
+  <div class="callout rule">
+    <div class="t">القاعدة الجوهرية التي يقوم عليها النظام</div>
+    يجب على المشاركين إكمال <strong>80% على الأقل</strong> من وقت الحضور المطلوب ليكونوا مؤهلين للحصول على ساعات التعليم الطبي المستمر. النظام يقيس هذا الوقت بنفسه من عمليات مسح الدخول والخروج، ويحسم الأهلية دون تدخل يدوي.
+  </div>
+
+  <h2>سلسلة العمل الكاملة</h2>
+  <div class="flow">
+    <div class="step"><div class="i">1</div><div class="l">موقع عيادتي</div></div>
+    <div class="step"><div class="i">2</div><div class="l">صفحة الفعالية التعليمية</div></div>
+    <div class="step"><div class="i">3</div><div class="l">التسجيل الإلكتروني</div></div>
+    <div class="step hi"><div class="i">4</div><div class="l">بطاقة حضور برمز QR خاص</div></div>
+    <div class="step hi"><div class="i">5</div><div class="l">مسح الدخول والخروج بالجوال</div></div>
+    <div class="step"><div class="i">6</div><div class="l">سجل الدخول/الخروج ومدة الحضور</div></div>
+    <div class="step"><div class="i">7</div><div class="l">نسبة الحضور وتحديد الأهلية</div></div>
+    <div class="step hi"><div class="i">8</div><div class="l">شهادة CME قابلة للتحقق</div></div>
+  </div>
+
+  <h2>ما الذي يميّزه عن الطريقة اليدوية؟</h2>
+  <table><thead>
+    <tr><th style="width:32%">المهمة</th><th>سابقًا</th><th>مع المنصة</th></tr></thead><tbody>
+    <tr><td>تسجيل المشاركين</td><td>نماذج متفرقة وجداول Excel</td><td>نموذج واحد مرتبط بموقع عيادتي، مع تحقق فوري من البيانات ومنع التكرار</td></tr>
+    <tr><td>إثبات الحضور</td><td>كشوف توقيع ورقية</td><td>مسح QR بالجوال عند الدخول والخروج، بوقت دقيق</td></tr>
+    <tr><td>حساب مدة الحضور</td><td>يدوي وعرضة للخطأ</td><td>تلقائي لحظيًا، يستبعد الاستراحات</td></tr>
+    <tr><td>الشهادات</td><td>تُعدّ وتُرسل يدويًا بعد أيام</td><td>تُصدر وتُرسل تلقائيًا في لحظة الخروج، مع رمز تحقق</td></tr>
+    <tr><td>المتابعة أثناء الفعالية</td><td>لا توجد</td><td>لوحة مباشرة: من بالداخل، من مؤهل، مخططات لحظية</td></tr>
+  </tbody></table>
+</section>
+
+<!-- ===== 2 ===== -->
+<section class="section">
+  <h1><span class="n num">2</span>الأدوار والصلاحيات</h1>
+  <p>لكل مستخدم في النظام دور يحدد ما يراه وما يستطيع فعله. مبدأ التصميم: <strong>لا يرى أحد أكثر مما يحتاجه لعمله.</strong></p>
+  <table><thead>
+    <tr><th style="width:20%">الدور</th><th style="width:26%">من هو</th><th>الصلاحيات</th></tr></thead><tbody>
+    <tr><td><strong>المشارك</strong></td><td>الطبيب أو الممرض أو الصيدلي الذي يحضر الفعالية</td><td>يسجّل من الرابط العام، يحصل على بطاقة حضور خاصة، يتابع نسبة حضوره لحظيًا، يحمّل شهادته. لا يحتاج حسابًا أو كلمة مرور.</td></tr>
+    <tr><td><strong>مسؤول المسح</strong><br><span class="small en">Scanner</span></td><td>موظف على بوابة الدخول أو الخروج</td><td>يمسح رموز QR من كاميرا جواله، يسجّل الحضور المباشر لمن لم يسجّل مسبقًا، يطّلع على قائمة المشاركين <strong>مع إخفاء</strong> أرقام الهوية والجوال.</td></tr>
+    <tr><td><strong>مدير الفعالية</strong><br><span class="small en">Event manager</span></td><td>المسؤول عن فعالية بعينها</td><td>كل صلاحيات مسؤول المسح، إضافةً إلى: تعديل بيانات المشاركين، تصحيح الحضور (إضافة أو إلغاء مسح)، تجاوز الأهلية، إصدار الشهادات وإلغاؤها، تصدير Excel واستيراده، إعدادات الفعالية، رابط التسجيل ورمز QR.</td></tr>
+    <tr><td><strong>المدير</strong><br><span class="small en">Admin</span></td><td>فريق الفعاليات في عيادتي</td><td>ينشئ الفعاليات ويديرها جميعًا، ينسخ فعالية سابقة، ويعيّن فرق العمل (مسؤولي مسح ومديرين) لكل فعالية.</td></tr>
+    <tr><td><strong>المشرف العام</strong><br><span class="small en">Super admin</span></td><td>مسؤول النظام</td><td>كل ما سبق، إضافةً إلى: إنشاء حسابات المستخدمين وتعطيلها وإعادة تعيين كلمات المرور، حذف الفعاليات، والاطلاع على سجل التدقيق الكامل.</td></tr>
+  </tbody></table>
+  <div class="callout">
+    <div class="t">كيف يُبنى الفريق عمليًا</div>
+    المشرف العام ينشئ حسابًا لكل موظف (بدور «موظف»)، ثم يعيّنه المدير على الفعاليات التي يعمل فيها بدور «مسؤول مسح» أو «مدير فعالية». الموظف لا يرى أي فعالية غير المعيّن عليها. عند إنشاء الحساب يصل الموظف بريد ترحيبي بكلمة مرور مؤقتة يُطلب منه تغييرها عند أول دخول.
+  </div>
+</section>
+
+<!-- ===== 3 ===== -->
+<section class="section">
+  <h1><span class="n num">3</span>رحلة الفعالية خطوة بخطوة</h1>
+
+  <div class="timeline">
+    <div class="tl">
+      <div class="h">3.1 إنشاء الفعالية (المدير)</div>
+      <p>من لوحة التحكم ← <strong>فعالية جديدة</strong>. يُدخل المدير الاسم بالعربية والإنجليزية، الوصف، المكان ورابط الخريطة، ساعات CME، رمز النشاط في هيئة التخصصات الصحية، ونص الاعتماد. ثم يحدد:</p>
+      <ul>
+        <li><strong>الجلسات</strong>: أوقات الحضور المحتسبة، مثل 08:00–12:00 ثم 13:00–16:00. وقت الاستراحة بينهما <strong>لا يُحتسب</strong>. الفعالية قد تمتد لعدة أيام.</li>
+        <li><strong>الحد الأدنى للحضور</strong> (80% افتراضيًا) وكيف يُطبّق: على إجمالي الوقت، أو على كل جلسة على حدة.</li>
+        <li>السعة القصوى، وموعد إغلاق التسجيل، وحالة الفعالية (مسودة / منشورة / مغلقة). لا تظهر للجمهور إلا وهي <strong>منشورة</strong>.</li>
+        <li>هل تُصدر الشهادة تلقائيًا عند تسجيل الخروج المستوفي للشرط؟ (نعم افتراضيًا).</li>
+      </ul>
+    </div>
+    <div class="tl">
+      <div class="h">3.2 نشر رابط التسجيل ورمز QR (المدير)</div>
+      <p>من تبويب <strong>رابط التسجيل ورمز QR</strong> يحصل المدير على رابط مباشر مثل <code>event.myclinic.com.sa/e/scientific-day-2026</code>، ورمز QR للرابط بصيغة PNG أو SVG للبوسترات، وملصق A4 جاهز للطباعة، وكود تضمين لعرض نموذج التسجيل داخل صفحة في موقع عيادتي نفسه.</p>
+    </div>
+    <div class="tl">
+      <div class="h">3.3 التسجيل (المشارك)</div>
+      <p>صفحة التسجيل تعرض العنوان الرئيسي <strong>My Clinic Educational</strong>، وتحته معلومات الفعالية (الاسم، التاريخ، المكان، ساعات CME، الاعتماد)، وتنبيه الـ80% بنص واضح. الحقول الإلزامية الخمسة:</p>
+      <table><thead>
+        <tr><th>الحقل</th><th>ما يتحقق منه النظام</th></tr></thead><tbody>
+        <tr><td>الاسم الكامل (ثلاثي)</td><td>ثلاثة أسماء على الأقل، أحرف فقط. يظهر كما هو على الشهادة.</td></tr>
+        <tr><td>البريد الإلكتروني</td><td>صيغة صحيحة، وغير مسجَّل مسبقًا في الفعالية نفسها.</td></tr>
+        <tr><td>رقم الجوال</td><td>صيغة سعودية صحيحة (05XXXXXXXX) ويقبل الأرقام العربية.</td></tr>
+        <tr><td>رقم تسجيل الهيئة السعودية للتخصصات الصحية</td><td>يُخزَّن ويظهر على الشهادة.</td></tr>
+        <tr><td>رقم الهوية الوطنية / الإقامة</td><td>10 أرقام تبدأ بـ1 أو 2، مع تحقق رياضي من صحة الرقم يكشف أخطاء الكتابة، وغير مسجَّل مسبقًا.</td></tr>
+      </tbody></table>
+      <p>مع إقرار بالموافقة على استخدام البيانات لإدارة التسجيل والحضور والشهادة. يرفض النظام التسجيل عند اكتمال السعة أو إغلاق التسجيل.</p>
+    </div>
+    <div class="tl">
+      <div class="h">3.4 بطاقة الحضور (المشارك)</div>
+      <p>فور التسجيل يحصل المشارك على <strong>صفحة بطاقة خاصة</strong> برابط سري تُرسل له بالبريد، وعليها <strong>رمز QR فريد</strong> مرتبط بتسجيله ورقم تذكرة مثل <code>MC-7KQ2XN</code>. تعرض البطاقة حالته الآن، ومدة حضوره، ونسبته، وكم تبقّى ليبلغ 80%، وتفصيل كل جلسة، وتتحدث تلقائيًا كل 15 ثانية أثناء الفعالية. وفيها أزرار: إضافة إلى التقويم، إرسال البطاقة إلى واتساب، حفظ صورة الرمز. من فقد الرابط يستعيده من صفحة التسجيل بإدخال بريده وهويته وجواله معًا.</p>
+    </div>
+    <div class="tl">
+      <div class="h">3.5 المسح على البوابة (فريق البوابة)</div>
+      <p>مسؤول المسح يفتح <strong>نقطة المسح</strong> من جواله ويمسح رمز QR من شاشة المشارك، بلا أي جهاز خارجي. أول مسح دخول، والتالي خروج. يظهر فورًا اسم المشارك ونوع العملية ومدة حضوره، مع صوت واهتزاز. التفاصيل الكاملة في الفصل 6.</p>
+    </div>
+    <div class="tl">
+      <div class="h">3.6 احتساب الحضور (تلقائي)</div>
+      <p>بعد كل مسح يعيد النظام حساب الوقت المحتسب والنسبة والأهلية لهذا المشارك. الخوارزمية في الفصل 4.</p>
+    </div>
+    <div class="tl">
+      <div class="h">3.7 الشهادة (تلقائي، أو بيد المدير)</div>
+      <p>مسح الخروج الذي يستوفي الشرط يُصدر الشهادة ويرسلها بالبريد في اللحظة نفسها. الشهادة صفحة بهوية عيادتي جاهزة للطباعة وحفظها PDF، عليها رمز فريد ورمز QR للتحقق. الخوارزمية في الفصل 5.</p>
+    </div>
+    <div class="tl">
+      <div class="h">3.8 المتابعة والتقارير (المدير)</div>
+      <div class="screens">
+        <div class="s"><div class="h">لوحة المتابعة المباشرة</div>المسجلون، الموجودون الآن، الحاضرون، المؤهلون، متوسط الحضور، الشهادات، ومخططات لحظية: التسجيلات التراكمية، الموجودون عبر اليوم، الدخول والخروج بالساعة، توزيع النسب مع خط الـ80%، الحضور حسب الجلسة، المهن، آخر عمليات المسح.</div>
+        <div class="s"><div class="h">المشاركون</div>بحث وفلاتر (بالداخل / خرج / لم يحضر / مؤهل / دون الحد)، تفاصيل كل مشارك وسجل مسحه، تسجيل حضور مباشر، استيراد قائمة من Excel، تصدير Excel بكل البيانات وسجل المسح.</div>
+        <div class="s"><div class="h">الشهادات</div>عدد المؤهلين والصادر منها، إصدار المتبقي دفعة واحدة مع إرسال بالبريد، ورابط تحقق لكل شهادة.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4 ===== -->
+<section class="section">
+  <h1><span class="n num">4</span>خوارزمية احتساب الحضور والأهلية</h1>
+  <p>هذه هي القواعد التي يطبّقها النظام حرفيًا بعد كل عملية مسح. لا يوجد تدخل بشري في الحساب نفسه.</p>
+
+  <h2>الخطوة 1: تحديد الوقت المطلوب</h2>
+  <p>الوقت المطلوب = مجموع أوقات الجلسات المعرّفة في الفعالية. مثال: جلسة صباحية 08:00–12:00 (4 ساعات) وجلسة مسائية 13:00–16:00 (3 ساعات) = <strong>7 ساعات</strong>. الحد الأدنى = 80% × 7 ساعات = <strong>5 ساعات و36 دقيقة</strong>.</p>
+
+  <h2>الخطوة 2: تجميع عمليات المسح في «زيارات»</h2>
+  <p>تُرتَّب عمليات المسح زمنيًا وتُقرن كل عملية دخول بأول عملية خروج تليها، فتنتج «زيارة». القواعد:</p>
+  <ul>
+    <li>دخول ثانٍ بلا خروج بينهما في اليوم نفسه = يُهمَل (يبقى الدخول الأول).</li>
+    <li>خروج بلا دخول قبله = يُهمَل.</li>
+    <li>زيارة لم تُغلق بخروج تُغلق تلقائيًا <strong>عند نهاية يومها</strong> (انظر الحالات الخاصة).</li>
+  </ul>
+
+  <h2>الخطوة 3: احتساب الدقائق داخل الجلسات فقط</h2>
+  <p>من كل زيارة تُحتسب فقط الدقائق الواقعة داخل أوقات الجلسات. الوقت قبل البداية أو أثناء الاستراحة أو بعد النهاية لا يُحتسب.</p>
+
+  <h2>الخطوة 4: النسبة والأهلية</h2>
+  <div class="formula">نسبة الحضور = الوقت المحتسب ÷ الوقت المطلوب &nbsp;&nbsp;·&nbsp;&nbsp; مؤهل إذا كانت النسبة ≥ 80%</div>
+  <p>تُقرَّب النسبة دائمًا <strong>إلى الأسفل</strong>: من حضر 79.96% يرى 79.9% لا 80%، حتى لا يظن أنه مؤهل وهو ليس كذلك.</p>
+
+  <h2>مثال محسوب</h2>
+  <table><thead>
+    <tr><th>العملية</th><th>الوقت</th><th>ما يُحتسب</th></tr></thead><tbody>
+    <tr><td>دخول</td><td class="num">07:50</td><td>لا شيء قبل 08:00</td></tr>
+    <tr><td>خروج</td><td class="num">12:10</td><td>08:00 → 12:00 = 4 ساعات (الدقائق بعد 12:00 استراحة، لا تُحتسب)</td></tr>
+    <tr><td>دخول</td><td class="num">13:20</td><td>تبدأ زيارة جديدة</td></tr>
+    <tr><td>خروج</td><td class="num">15:30</td><td>13:20 → 15:30 = ساعتان و10 دقائق</td></tr>
+  </tbody></table>
+  <div class="grid2">
+    <div class="callout ok"><div class="t">المجموع: 6 ساعات و10 دقائق</div>النسبة = 6:10 ÷ 7:00 = <strong>88%</strong> ← مؤهل. الشهادة تُصدر عند مسح الخروج في 15:30.</div>
+    <div class="callout bad"><div class="t">لو خرج في 14:30 بدلًا من 15:30</div>المجموع 5:10 = <strong>73.8%</strong> ← غير مؤهل. تظهر له على البطاقة الرسالة «الوقت المتبقي لا يكفي» قبل أن يغادر.</div>
+  </div>
+
+  <h2>قاعدة «كل جلسة على حدة» (اختيارية)</h2>
+  <p>إن فعّلها المدير، يُطبّق الحساب نفسه على كل جلسة وحدها، ويجب أن تستوفي <strong>كل</strong> الجلسات الحد الأدنى. من يتغيب عن جلسة كاملة لا يستحق الشهادة حتى لو حضر الباقي كاملًا. مثال: صباح 100% + مساء 60% = 83% إجمالًا؛ مؤهل بقاعدة الإجمالي، وغير مؤهل بقاعدة الجلسات.</p>
+
+  <h2>ما يراه المشارك على بطاقته</h2>
+  <ul>
+    <li><strong>دائرة النسبة</strong> بعلامة عند 80%؛ تتحول إلى الأخضر حين يبلغها.</li>
+    <li>رسالة واحدة من ثلاث: <span class="badge b-navy">متبقٍ ساعة و26 دقيقة لبلوغ الحد</span> أو <span class="badge b-ok">لقد استوفيت شرط الحضور</span> أو <span class="badge b-warn">الوقت المتبقي لا يكفي لبلوغ الحد</span>. الأخيرة تعني أن ما تبقّى من الجلسات أقل مما ينقصه.</li>
+    <li>تفصيل كل جلسة بنسبتها، وسجل الدخول والخروج.</li>
+  </ul>
+</section>
+
+<!-- ===== 5 ===== -->
+<section class="section">
+  <h1><span class="n num">5</span>خوارزمية إصدار الشهادة</h1>
+  <p>مبدأ التصميم: <strong>مسح الخروج هو ما يُصدر الشهادة.</strong> لا انتظار لنهاية الفعالية ولا عمل يدوي في الحالة الطبيعية.</p>
+
+  <div class="decision">
+    <div class="q">① المشارك يمسح رمزه عند بوابة الخروج ← النظام يعيد حساب حضوره (الفصل 4)</div>
+    <div class="q">② هل بلغ الحد الأدنى (80%)؟</div>
+    <div class="a">
+      <div class="yes"><b>نعم</b>تُصدر الشهادة برمز فريد <strong>في اللحظة نفسها</strong>، وتُرسل إلى بريده مع رابطها، ويرى مسؤول المسح رسالة «تم إصدار الشهادة وإرسالها». تظهر على بطاقته فورًا.</div>
+      <div class="no"><b>لا</b>لا تُصدر. يرى المشارك على بطاقته كم ينقصه. إن عاد ودخل مجددًا، تُجمع زيارتاه، ويُعاد الفحص عند خروجه التالي.</div>
+    </div>
+    <div class="q">③ ماذا عمّن لم يمسح الخروج أصلًا؟</div>
+    <div class="a">
+      <div class="yes"><b>بعد انتهاء الفعالية</b>تُغلق زيارته عند نهاية اليوم وتُحتسب. إن كان مؤهلًا، يحصل على شهادته من بطاقته بنفسه، أو عندما يضغط المدير «إصدار الشهادات» للجميع دفعة واحدة.</div>
+      <div class="no"><b>خلال الفعالية</b>لا تُصدر شهادة لمن لم يخرج بعد، لأن حضوره ما زال يُحتسب.</div>
+    </div>
+  </div>
+
+  <h2>الضمانات المدمجة</h2>
+  <table><thead>
+    <tr><th style="width:36%">الضمان</th><th>التفصيل</th></tr></thead><tbody>
+    <tr><td>لا شهادة دون أهلية</td><td>لا تُصدر أبدًا لمن هو تحت الحد، إلا إذا سجّل مدير الفعالية «تجاوز أهلية» صريحًا يُدوَّن باسمه في سجل التدقيق.</td></tr>
+    <tr><td>شهادة واحدة لكل مشارك</td><td>مسح الخروج مرتين لا يُصدر شهادتين.</td></tr>
+    <tr><td>قابلة للتحقق</td><td>كل شهادة تحمل رمزًا مثل <code>CME-7KQ2-X9LM</code> ورمز QR يفتح صفحة تحقق عامة تؤكد الاسم والفعالية والتاريخ.</td></tr>
+    <tr><td>قابلة للإلغاء</td><td>إن اكتُشف مسح خاطئ وألغاه المدير، يستطيع إلغاء الشهادة فيتوقف التحقق منها فورًا.</td></tr>
+    <tr><td>الإصدار التلقائي اختياري</td><td>إعداد لكل فعالية. عند إيقافه لا تُصدر الشهادات إلا بعد نهاية الفعالية (من البطاقة أو بيد المدير).</td></tr>
+  </tbody></table>
+
+  <h2>محتوى الشهادة</h2>
+  <p>شعار عيادتي، عنوان «شهادة حضور»، اسم المشارك كما سجّله، رقم الهيئة، اسم الفعالية والمكان والتاريخ، عدد ساعات CME الممنوحة، نسبة الحضور، رمز النشاط، تاريخ الإصدار، رمز الشهادة، ورمز QR للتحقق. تُطبع بحجم A4 أفقي أو تُحفظ PDF من المتصفح.</p>
+</section>
+
+<!-- ===== 6 ===== -->
+<section class="section">
+  <h1><span class="n num">6</span>إجراءات يوم الفعالية لفريق البوابة</h1>
+  <p class="small">هذا الفصل مُعدّ للطباعة وتسليمه لمسؤولي المسح.</p>
+
+  <h2>قبل بدء الفعالية (مرة واحدة)</h2>
+  <ol>
+    <li>افتح رابط المنصة على جوالك وسجّل الدخول بحساب الفريق.</li>
+    <li>اختر الفعالية ← تبويب <strong>نقطة المسح</strong>.</li>
+    <li>اضغط <strong>تشغيل الكاميرا</strong> واسمح للمتصفح باستخدامها (يُطلب مرة واحدة).</li>
+    <li>ضع الجوال على حامل وارفع سطوع الشاشة. لا حاجة لتثبيت أي تطبيق.</li>
+  </ol>
+
+  <h2>اختيار الوضع</h2>
+  <table><thead>
+    <tr><th style="width:22%">الوضع</th><th>متى يُستخدم</th></tr></thead><tbody>
+    <tr><td><strong>تلقائي</strong></td><td>بوابة واحدة للدخول والخروج: أول مسح للمشارك دخول، والتالي خروج.</td></tr>
+    <tr><td><strong>دخول</strong></td><td>بوابة مخصصة للدخول فقط.</td></tr>
+    <tr><td><strong>خروج</strong></td><td>بوابة مخصصة للخروج فقط، وهو <strong>الأنسب لبوابة الخروج</strong>، لأن المسح لا يُسجَّل إلا كخروج، ومن لم يسجّل دخولًا يظهر له تنبيه.</td></tr>
+  </tbody></table>
+
+  <h2>عملية المسح</h2>
+  <ol>
+    <li>المشارك يُظهر رمز QR من بطاقته على جواله (من بريد التأكيد).</li>
+    <li>وجّه الكاميرا إليه، فيُقرأ خلال ثانية دون ضغط أي زر.</li>
+    <li>تظهر شاشة نتيجة كبيرة بالألوان مع صوت واهتزاز، ثم تختفي والكاميرا جاهزة للتالي.</li>
+  </ol>
+  <table><thead>
+    <tr><th style="width:18%">اللون</th><th style="width:30%">النتيجة</th><th>ماذا تفعل</th></tr></thead><tbody>
+    <tr><td><span class="badge b-ok">أخضر</span></td><td>تم تسجيل الدخول</td><td>لا شيء. المشارك يدخل.</td></tr>
+    <tr><td><span class="badge b-navy">كحلي</span></td><td>تم تسجيل الخروج + مدة الحضور والنسبة</td><td>لا شيء. إن ظهر «تم إصدار الشهادة وإرسالها» فأخبر المشارك أن شهادته وصلته بالبريد.</td></tr>
+    <tr><td><span class="badge b-warn">أصفر</span></td><td>تم المسح للتو / مسجّل دخوله مسبقًا / لم يسجّل الدخول</td><td>تنبيه فقط. اقرأ الرسالة: غالبًا مسح مكرر أو الوضع غير مناسب.</td></tr>
+    <tr><td><span class="badge b-bad">أحمر</span></td><td>رمز غير معروف / فعالية مختلفة / تسجيل ملغى</td><td>وجّه المشارك إلى مكتب التسجيل.</td></tr>
+  </tbody></table>
+
+  <h2>بدائل وحالات</h2>
+  <ul>
+    <li><strong>بلا جوال أو الشاشة مكسورة:</strong> اكتب رقم التذكرة (مثل <code>MC-7KQ2XN</code>) أو رقم الهوية في الخانة أسفل الكاميرا واضغط إرسال.</li>
+    <li><strong>لم يسجّل مسبقًا:</strong> زر <strong>تسجيل حضور مباشر</strong> يفتح نموذجًا مختصرًا، وبعد الحفظ يُسجَّل دخوله فورًا ويصله بريد ببطاقته.</li>
+    <li><strong>انقطع الإنترنت:</strong> استمر في المسح. تظهر «حُفظ دون اتصال»، وتُرسل العمليات تلقائيًا بوقتها الأصلي عند عودة الشبكة. عدّاد «بانتظار المزامنة» يبيّن كم عملية معلّقة.</li>
+    <li><strong>خرج مؤقتًا (استراحة، مكالمة):</strong> يمسح خروجًا ثم دخولًا عند العودة. الزيارتان تُجمعان في حسابه.</li>
+    <li><strong>نسي مسح الخروج:</strong> لا يضيع حقه. أبلغ مدير الفعالية ليضيف الخروج يدويًا بالوقت الصحيح (الفصل 7).</li>
+  </ul>
+  <div class="callout warn">
+    <div class="t">ملاحظة تقنية</div>
+    كاميرا المتصفح لا تعمل إلا عبر عنوان آمن (https). على الخادم الحقيقي هذا جاهز تلقائيًا.
+  </div>
+</section>
+
+<!-- ===== 7 ===== -->
+<section class="section">
+  <h1><span class="n num">7</span>الحالات الخاصة وكيف يتعامل معها النظام</h1>
+  <table><thead>
+    <tr><th style="width:30%">الحالة</th><th>سلوك النظام</th></tr></thead><tbody>
+    <tr><td>نسي مسح الخروج</td><td>تُغلق زيارته تلقائيًا عند نهاية <strong>ذلك اليوم</strong>. افتراضيًا يُحتسب وقته حتى النهاية (ويمكن للمدير إيقاف ذلك فلا يُحتسب ما بعد آخر دخول). يستطيع المدير إضافة الخروج يدويًا بالوقت الصحيح من ملف المشارك، وإن استوفى الشرط تُصدر شهادته حينها.</td></tr>
+    <tr><td>فعالية على عدة أيام</td><td>الزيارة المفتوحة من اليوم الأول لا تمتد إلى اليوم التالي، والمشارك لا يظهر «بالداخل» صباح اليوم الثاني؛ مسحه التالي يُسجَّل دخولًا جديدًا. لا يُحتسب أبدًا وقت في يوم لم يحضره.</td></tr>
+    <tr><td>مسح خاطئ أو مكرر</td><td>المسح المكرر خلال 45 ثانية يُرفض تلقائيًا. المسح الخاطئ يستطيع المدير <strong>إلغاءه</strong> فيُستبعد من الحساب مع بقائه في السجل.</td></tr>
+    <tr><td>دخول قبل بداية الجلسة أو خروج بعدها</td><td>مقبول، لكن لا يُحتسب إلا ما داخل الجلسة.</td></tr>
+    <tr><td>الاستراحة</td><td>لا تُحتسب سواء خرج المشارك أو بقي في القاعة.</td></tr>
+    <tr><td>فقد رابط البطاقة</td><td>من صفحة التسجيل ← «اعرض بطاقتي» بإدخال البريد والهوية والجوال معًا. تُفتح البطاقة ويُعاد إرسالها بالبريد.</td></tr>
+    <tr><td>محاولة التسجيل مرتين</td><td>يُرفض بنفس الهوية أو البريد في الفعالية نفسها، ويُعرض على المشارك الوصول إلى بطاقته الأصلية.</td></tr>
+    <tr><td>اكتمال السعة</td><td>يتوقف التسجيل تلقائيًا، وتظهر «اكتمل العدد».</td></tr>
+    <tr><td>مشارك تحت الحد لظرف قاهر</td><td>مدير الفعالية يسجّل «تجاوز أهلية» في ملفه، فتُصدر الشهادة. يُدوَّن الإجراء باسمه في سجل التدقيق.</td></tr>
+    <tr><td>قائمة مسجلين جاهزة من قبل</td><td>يستوردها المدير من Excel أو CSV دفعة واحدة، ويصل كل مشارك بريد ببطاقته. الصفوف الناقصة أو المكررة تُعرض بأسبابها دون إيقاف الاستيراد.</td></tr>
+    <tr><td>إعادة فعالية سابقة</td><td>زر «نسخ الفعالية» ينشئ مسودة بالإعدادات والجلسات والفريق نفسه بتواريخ جديدة، دون المشاركين.</td></tr>
+  </tbody></table>
+</section>
+
+<!-- ===== 8 ===== -->
+<section class="section">
+  <h1><span class="n num">8</span>البريد الإلكتروني والتواصل</h1>
+  <p>يرسل النظام بريدًا من عنوان <code>events@myclinic.com.sa</code> باسم «My Clinic Educational»، عبر خدمة Resend:</p>
+  <table><thead>
+    <tr><th style="width:34%">الرسالة</th><th>متى</th><th>المحتوى</th></tr></thead><tbody>
+    <tr><td>تأكيد التسجيل</td><td>فور التسجيل أو الاستيراد أو الحضور المباشر</td><td>تفاصيل الفعالية، رقم التذكرة، رمز QR، رابط البطاقة، وتذكير بشرط الـ80%.</td></tr>
+    <tr><td>الشهادة</td><td>عند إصدارها</td><td>رابط عرض الشهادة وطباعتها ورمزها.</td></tr>
+    <tr><td>حساب فريق جديد / إعادة تعيين</td><td>عند إنشاء المشرف العام الحساب</td><td>كلمة مرور مؤقتة ورابط الدخول.</td></tr>
+    <tr><td>استعادة كلمة المرور</td><td>عند طلب الموظف</td><td>رابط صالح لساعة واحدة ولمرة واحدة.</td></tr>
+  </tbody></table>
+  <ul>
+    <li>ردود المشاركين تصل إلى صندوق <code>events@myclinic.com.sa</code>، فيجب أن يكون صندوقًا حقيقيًا يتابعه أحد.</li>
+    <li>يشترط ذلك التحقق من نطاق <code>myclinic.com.sa</code> في Resend بإضافة سجلات DNS (يقوم بها فريق تقنية المعلومات مرة واحدة).</li>
+    <li>من البطاقة يستطيع المشارك إرسالها لنفسه على واتساب، ويستطيع المدير إرسال بطاقة أي مشارك إليه عبر واتساب من ملفه.</li>
+  </ul>
+</section>
+
+<!-- ===== 9 ===== -->
+<section class="section">
+  <h1><span class="n num">9</span>الأمان والحوكمة</h1>
+  <table><thead>
+    <tr><th style="width:30%">الجانب</th><th>التطبيق</th></tr></thead><tbody>
+    <tr><td>الحسابات</td><td>كلمات المرور مشفرة بخوارزمية حديثة، جلسات محدودة المدة، حد لمحاولات الدخول الخاطئة، وتغيير كلمة المرور يُنهي الجلسات على الأجهزة الأخرى.</td></tr>
+    <tr><td>بطاقة المشارك</td><td>رابط البطاقة سري ومنفصل عن رمز QR: تصوير الرمز لا يفتح بيانات المشارك. الصفحة غير قابلة للفهرسة في محركات البحث.</td></tr>
+    <tr><td>البيانات الشخصية</td><td>مسؤولو المسح يرون أرقام الهوية والجوال <strong>مخفية جزئيًا</strong>؛ المدراء فقط يرونها كاملة. الموظف لا يرى إلا فعالياته.</td></tr>
+    <tr><td>سجل التدقيق</td><td>كل تسجيل دخول، تعديل، تصدير، إصدار أو إلغاء شهادة، تجاوز أهلية، وتعديل يدوي للحضور، مع الوقت والمستخدم وعنوان الشبكة. لا يُحذف.</td></tr>
+    <tr><td>الشهادات</td><td>رمز فريد لكل شهادة وصفحة تحقق عامة؛ الإلغاء يوقف التحقق فورًا.</td></tr>
+    <tr><td>الحماية من الإساءة</td><td>حدود على عدد محاولات التسجيل والدخول والتحقق من نفس المصدر.</td></tr>
+  </tbody></table>
+</section>
+
+<!-- ===== 10 ===== -->
+<section class="section">
+  <h1><span class="n num">10</span>البنية التقنية والنشر</h1>
+  <table><thead>
+    <tr><th style="width:30%">الطبقة</th><th>التقنية</th></tr></thead><tbody>
+    <tr><td>واجهة المستخدم</td><td>Next.js 16 + Tailwind CSS. عربية/إنجليزية مع دعم كامل لاتجاه RTL. تعمل على الجوال والحاسب من المتصفح دون تطبيق.</td></tr>
+    <tr><td>الخادم (API)</td><td>Python (FastAPI).</td></tr>
+    <tr><td>قاعدة البيانات</td><td>PostgreSQL.</td></tr>
+    <tr><td>البريد</td><td>Resend.</td></tr>
+    <tr><td>النشر</td><td>Docker Compose: قاعدة البيانات + API + الواجهة + Caddy (شهادة HTTPS تلقائية). يُنشر على خادم واحد بأمر واحد.</td></tr>
+  </tbody></table>
+  <h2>متطلبات التشغيل</h2>
+  <ul>
+    <li>خادم (سحابي أو محلي) يشغّل Docker، بالنطاق <code>event.myclinic.com.sa</code> موجّهًا إليه.</li>
+    <li>نسخ احتياطي دوري لقاعدة البيانات (أمر واحد موثّق في دليل التشغيل).</li>
+    <li>للمشاركين والفريق: أي متصفح حديث على الجوال أو الحاسب. الكاميرا تحتاج اتصالًا آمنًا (https) وهو متوفر تلقائيًا.</li>
+  </ul>
+  <h2>إعادة الاستخدام</h2>
+  <p>كل فعالية جديدة تُنشأ في دقائق، أو تُنسخ من فعالية سابقة. نفس الحسابات والفرق والقواعد تعمل لكل الفعاليات القادمة دون تطوير إضافي.</p>
+</section>
+
+<!-- ===== 11 ===== -->
+<section class="section">
+  <h1><span class="n num">11</span>قرارات مطلوبة من عيادتي قبل الإطلاق</h1>
+  <table><thead>
+    <tr><th style="width:6%">#</th><th style="width:40%">القرار</th><th>الوضع الحالي</th></tr></thead><tbody>
+    <tr><td class="num">1</td><td>الاسم العربي للعنوان الرئيسي</td><td>مقترح: <strong>عيادتي التعليمية</strong></td></tr>
+    <tr><td class="num">2</td><td>صيغة رقم تسجيل الهيئة السعودية للتخصصات الصحية</td><td>يُقبل حاليًا أي صيغة معقولة (أحرف وأرقام وشرطات). يمكن تشديد التحقق إن كانت هناك صيغة موحدة.</td></tr>
+    <tr><td class="num">3</td><td>نص الشهادة وجهة التوقيع</td><td>نص افتراضي بهوية عيادتي؛ يُعدَّل حسب الرغبة.</td></tr>
+    <tr><td class="num">4</td><td>قاعدة الحضور الافتراضية</td><td>80% من الإجمالي. يمكن جعل «كل جلسة على حدة» هي الافتراضية.</td></tr>
+    <tr><td class="num">5</td><td>التحقق من النطاق في Resend وإنشاء صندوق <code>events@myclinic.com.sa</code></td><td>مطلوب من فريق تقنية المعلومات (سجلات DNS + صندوق بريد).</td></tr>
+    <tr><td class="num">6</td><td>الخادم والنطاق الفرعي للمنصة</td><td>تم تحديد النطاق: <code>event.myclinic.com.sa</code>. مطلوب توفير خادم وتوجيه سجل DNS إليه.</td></tr>
+    <tr><td class="num">7</td><td>حسابات الفريق</td><td>قائمة بأسماء وبريد المشرف العام والمدراء والموظفين وأدوارهم.</td></tr>
+  </tbody></table>
+</section>
+
+<!-- ===== 12 ===== -->
+<section class="section">
+  <h1><span class="n num">12</span>مسرد المصطلحات</h1>
+  <table><thead>
+    <tr><th style="width:28%">المصطلح</th><th>المعنى</th></tr></thead><tbody>
+    <tr><td>الجلسة <span class="small en">Session</span></td><td>فترة زمنية محددة تُحتسب في الحضور (مثل 08:00–12:00). الفعالية تتكون من جلسة أو أكثر.</td></tr>
+    <tr><td>الوقت المطلوب</td><td>مجموع أوقات الجلسات.</td></tr>
+    <tr><td>الوقت المحتسب</td><td>الدقائق التي كان فيها المشارك بالداخل أثناء الجلسات.</td></tr>
+    <tr><td>الزيارة</td><td>دخول واحد مقرون بالخروج الذي يليه.</td></tr>
+    <tr><td>الحد الأدنى للحضور</td><td>النسبة المطلوبة للأهلية (80% افتراضيًا).</td></tr>
+    <tr><td>الأهلية</td><td>استحقاق المشارك لشهادة CME بعد بلوغ الحد الأدنى.</td></tr>
+    <tr><td>تجاوز الأهلية</td><td>قرار يدوي من مدير الفعالية باعتبار مشارك مؤهلًا أو غير مؤهل بغض النظر عن الحساب، ويُسجَّل باسمه.</td></tr>
+    <tr><td>بطاقة الحضور <span class="small en">Pass</span></td><td>صفحة المشارك الخاصة برمز QR ومتابعة حضوره.</td></tr>
+    <tr><td>رقم التذكرة</td><td>معرّف قصير للمشارك مثل <code>MC-7KQ2XN</code> يُستخدم بديلًا عن QR.</td></tr>
+    <tr><td>الحضور المباشر <span class="small en">Walk-in</span></td><td>مشارك يُسجَّل على البوابة يوم الفعالية دون تسجيل مسبق.</td></tr>
+    <tr><td>رمز الشهادة</td><td>معرّف فريد للشهادة مثل <code>CME-7KQ2-X9LM</code> يُستخدم للتحقق.</td></tr>
+    <tr><td>سجل التدقيق</td><td>سجل دائم لكل إجراء في النظام مع الوقت والمستخدم.</td></tr>
+    <tr><td>CME</td><td>التعليم الطبي المستمر <span class="en">Continuing Medical Education</span>.</td></tr>
+  </tbody></table>
+  <p class="small" style="margin-top:14pt;">منصة عيادتي للفعاليات · دليل عمل النظام · الإصدار 1.0 · سبتمبر 2026 · حيث صحتك تهمنا</p>
+</section>
+
+</body>
+</html>
