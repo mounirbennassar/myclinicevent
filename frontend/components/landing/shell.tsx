@@ -10,6 +10,9 @@ import { landingCopy } from "./copy";
 import { LandingMotion } from "./motion";
 import s from "./landing.module.css";
 
+// Visitors join by registering for an event; there is no separate membership sign-up.
+const MEMBER_HREF = "/events";
+
 export function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return (
     <svg
@@ -101,6 +104,10 @@ export function SiteShell({
             </nav>
             <div className={s.headerActions}>
               <LangToggle className={s.language} />
+              <Link href={MEMBER_HREF} className={s.member}>
+                <span>{c.member}</span>
+                <small>{c.memberNote}</small>
+              </Link>
               <Link href="/login" className={s.signIn}>
                 <Icon name="user" size={16} />
                 {t.public.login}
@@ -139,7 +146,18 @@ export function SiteShell({
                   <Arrow />
                 </Link>
               ))}
-              <Link href="/login">
+              <Link
+                href={MEMBER_HREF}
+                className={s.mobileMember}
+                onClick={() => setMenuOpen(false)}
+              >
+                <span>
+                  {c.member}
+                  <small>{c.memberNote}</small>
+                </span>
+                <Arrow />
+              </Link>
+              <Link href="/login" onClick={() => setMenuOpen(false)}>
                 {t.public.login}
                 <Icon name="user" size={16} />
               </Link>
