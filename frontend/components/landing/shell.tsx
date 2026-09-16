@@ -104,7 +104,7 @@ export function SiteShell({
             </nav>
             <div className={s.headerActions}>
               <LangToggle className={s.language} />
-              <Link href={MEMBER_HREF} className={s.member}>
+              <Link href={MEMBER_HREF} className={s.member} data-member="">
                 <span>{c.member}</span>
                 <small>{c.memberNote}</small>
               </Link>

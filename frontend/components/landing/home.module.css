@@ -25,6 +25,21 @@
   background: #ffffff12;
   border: 1px solid #ffffff25;
 }
+.experience header a[data-member] {
+  background: #ffffff;
+  color: #003868;
+  border: 1px solid #ffffff;
+  box-shadow: 0 6px 18px #00000026;
+}
+.experience header a[data-member]:hover {
+  background: #d2fbfb;
+  border-color: #d2fbfb;
+  color: #003868;
+}
+.experience header a[data-member] small {
+  color: #004d99;
+  opacity: 1;
+}
 .experience header nav[id="mobile-navigation"] {
   background: #003868;
 }

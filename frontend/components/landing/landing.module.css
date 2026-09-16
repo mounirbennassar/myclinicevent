@@ -195,6 +195,10 @@
 .member:hover {
   background: var(--blue);
 }
+.member,
+.signIn {
+  border: 1px solid transparent;
+}
 .signIn {
   display: flex;
   align-items: center;
