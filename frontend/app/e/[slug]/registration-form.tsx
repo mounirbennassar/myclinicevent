@@ -1,13 +1,15 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState, type FormEvent } from "react";
 
 import { Icon } from "@/components/icons";
 import { Button, Checkbox, Field, Input, Modal, Select, errorMessage } from "@/components/ui";
 import { ApiError, api } from "@/lib/api";
+import { useMe } from "@/lib/hooks";
 import { useI18n } from "@/lib/i18n";
-import type { PublicEvent } from "@/lib/types";
+import type { MemberRegistration, PublicEvent, User } from "@/lib/types";
 
 const PROFESSIONS = ["consultant", "specialist", "resident", "gp", "nurse", "pharmacist", "dentist", "allied_health", "student", "other"];
 const REQUIRED = ["full_name", "email", "mobile", "scfhs_number", "national_id"] as const;
@@ -38,6 +40,7 @@ export function RegistrationForm({ event }: { event: PublicEvent }) {
   const [submitting, setSubmitting] = useState(false);
   const [findOpen, setFindOpen] = useState(false);
 
+  const { data: me } = useMe();
   const state = event.registration_state ?? "open";
   const canRegister = state === "open" || event.is_preview;
 
@@ -107,8 +110,24 @@ export function RegistrationForm({ event }: { event: PublicEvent }) {
     );
   }
 
+  // Members never fill in the form: their saved details are used.
+  if (me?.role === "member" && state === "open") return <MemberApply event={event} user={me} />;
+
+  const here = `/e/${event.slug}`;
   return (
     <section className="rounded-2xl border border-hairline/80 bg-white p-6 shadow-card sm:p-8">
+      {!me && (
+        <div className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-xl bg-tint px-4 py-3 text-[13.5px] font-medium text-navy">
+          <Icon name="sparkle" size={16} className="shrink-0" />
+          <span className="flex-1">{t.member.guestHint}</span>
+          <Link href={`/login?next=${encodeURIComponent(here)}`} className="font-bold text-action hover:underline">
+            {t.member.guestSignIn}
+          </Link>
+          <Link href={`/signup?next=${encodeURIComponent(here)}`} className="font-bold text-action hover:underline">
+            {t.member.guestJoin}
+          </Link>
+        </div>
+      )}
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <h3 className="text-[20px] font-extrabold">{t.public.formTitle}</h3>
@@ -253,6 +272,70 @@ export function RegistrationForm({ event }: { event: PublicEvent }) {
         </div>
       </form>
       <FindPassModal open={findOpen} onClose={() => setFindOpen(false)} slug={event.slug} />
+    </section>
+  );
+}
+
+/** One-click registration for a signed-in member, using the details saved on their membership. */
+function MemberApply({ event, user }: { event: PublicEvent; user: User }) {
+  const { t, locale } = useI18n();
+  const router = useRouter();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function apply() {
+    setError(null);
+    setBusy(true);
+    try {
+      const res = await api<{ registration: MemberRegistration; already_registered: boolean }>(
+        `/member/events/${event.slug}/apply`,
+        { method: "POST", body: {} },
+      );
+      router.push(`/r/${res.registration.access_token}${res.already_registered ? "" : "?welcome=1"}`);
+    } catch (err) {
+      setBusy(false);
+      setError(errorMessage(err, t, locale));
+    }
+  }
+
+  return (
+    <section className="rounded-2xl border border-hairline/80 bg-white p-6 shadow-card sm:p-8">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h3 className="text-[20px] font-extrabold">{t.public.formTitle}</h3>
+          <p className="mt-1 text-[13.5px] text-ink-500">{t.member.applyAsMemberIntro}</p>
+        </div>
+        {event.seats_left != null && (
+          <span className="rounded-full bg-tint px-3 py-1 text-[12.5px] font-bold text-navy">
+            {t.public.seatsLeft(event.seats_left)}
+          </span>
+        )}
+      </div>
+      <div className="mt-6 flex flex-wrap items-center justify-between gap-4 rounded-xl bg-tint p-4">
+        <div className="min-w-0 text-[14px]">
+          <div className="font-extrabold text-navy">{t.member.signedInAs(user.full_name)}</div>
+          <div className="text-ink-500" dir="ltr">
+            {user.email}
+          </div>
+        </div>
+        <Button size="lg" onClick={apply} loading={busy} icon="check" className="sm:min-w-56">
+          {busy ? t.member.applying : t.member.applyAsMember}
+        </Button>
+      </div>
+      {error && (
+        <div className="mt-4 flex items-start gap-3 rounded-xl bg-danger-tint p-4 text-[14px] font-medium text-danger" role="alert">
+          <Icon name="alert" className="mt-0.5 shrink-0" />
+          {error}
+        </div>
+      )}
+      <div className="mt-4 flex flex-wrap gap-x-5 gap-y-1 text-[13.5px] font-bold">
+        <Link href="/member" className="text-action hover:underline">
+          {t.member.portalTitle}
+        </Link>
+        <Link href="/member/profile" className="text-action hover:underline">
+          {t.member.navProfile}
+        </Link>
+      </div>
     </section>
   );
 }

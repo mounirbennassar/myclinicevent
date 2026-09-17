@@ -91,6 +91,10 @@ def portal_url() -> str:
     return f"{_base()}/sponsor"
 
 
+def member_portal_url() -> str:
+    return f"{_base()}/member"
+
+
 def _random_code(n: int) -> str:
     return "".join(secrets.choice(CODE_ALPHABET) for _ in range(n))
 

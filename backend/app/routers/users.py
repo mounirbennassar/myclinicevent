@@ -30,8 +30,8 @@ def _active_super_admins(db: Session) -> int:
 @router.get("", response_model=list[UserOut])
 def list_users(_: User = Depends(require_admin), db: Session = Depends(get_db)):
     # Admins can see the team to assign people to events; only super admins can change it.
-    # Sponsor portal accounts are managed from each event's Sponsors tab, not here.
-    return db.scalars(select(User).where(User.role != "sponsor").order_by(User.created_at)).all()
+    # Sponsor portal accounts are managed from each event's Sponsors tab, and members sign up themselves.
+    return db.scalars(select(User).where(User.role.not_in(("sponsor", "member"))).order_by(User.created_at)).all()
 
 
 @router.post("", response_model=UserWithPassword, status_code=201)

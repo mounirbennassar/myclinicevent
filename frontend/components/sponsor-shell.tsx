@@ -43,7 +43,7 @@ export function SponsorShell({ children }: { children: ReactNode }) {
     if (unauthorized) router.replace(`/login?next=${encodeURIComponent(pathname)}`);
   }, [unauthorized, pathname, router]);
   useEffect(() => {
-    if (user && !isSponsor) router.replace("/admin");
+    if (user && !isSponsor) router.replace(user.role === "member" ? "/member" : "/admin");
   }, [user, isSponsor, router]);
   useEffect(() => {
     if (user?.must_change_password && pathname !== "/sponsor/account") router.replace("/sponsor/account?required=1");

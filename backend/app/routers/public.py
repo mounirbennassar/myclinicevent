@@ -99,8 +99,9 @@ def register(
     # Lock the event row so concurrent sign-ups can't overshoot capacity.
     db.execute(select(Event.id).where(Event.id == event.id).with_for_update())
     state = svc.registration_state(event, svc.registered_count(db, event.id))
-    # Team members may test the form on a draft event.
-    if state != "open" and not (state == "not_published" and user is not None):
+    # The event's team may test the form before publishing. Any other signed-in account (sponsor, member) may not.
+    is_team = user is not None and access_level(db, event.id, user) is not None
+    if state != "open" and not (state == "not_published" and is_team):
         raise ApiError(409, f"registration_{state}", svc.REGISTRATION_STATE_MESSAGES[state])
     reg = svc.create_registration(db, event, body, source="online")
     audit(db, actor=None, action="registration.created", entity_type="registration", entity_id=reg.id,

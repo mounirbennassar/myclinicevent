@@ -146,10 +146,10 @@ require_super_admin = require_roles("super_admin")
 
 def access_level(db: Session, event_id: int, user: User) -> str | None:
     """manager | scanner | None. Admins manage every event; staff only what they're assigned.
-    Sponsor portal users never get event access, whatever they're assigned."""
+    Sponsor portal users and members never get event access, whatever they're assigned."""
     if user.role in ADMIN_ROLES:
         return "manager"
-    if user.role == "sponsor":
+    if user.role in ("sponsor", "member"):
         return None
     link = db.get(EventStaff, (event_id, user.id))
     return link.role if link else None

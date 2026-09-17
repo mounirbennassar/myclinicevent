@@ -1,5 +1,5 @@
 export type Locale = "en" | "ar";
-export type Role = "super_admin" | "admin" | "staff" | "sponsor";
+export type Role = "super_admin" | "admin" | "staff" | "sponsor" | "member";
 export type SponsorTier = "platinum" | "gold" | "silver" | "bronze" | "exhibitor" | "partner";
 export type SponsorStatus = "pending" | "approved" | "rejected";
 export type TeamRole = "manager" | "scanner";
@@ -33,6 +33,37 @@ export interface User {
   sponsor_id: number | null;
   last_login_at: string | null;
   created_at: string;
+}
+
+export interface MemberProfile {
+  full_name: string;
+  email: string;
+  mobile: string;
+  scfhs_number: string;
+  national_id: string;
+  profession: string | null;
+  sponsor_consent: boolean;
+  member_since: string;
+}
+
+export interface MemberMe {
+  user: User;
+  profile: MemberProfile;
+}
+
+export interface MemberRegistration {
+  id: number;
+  ticket_code: string;
+  access_token: string;
+  pass_url: string;
+  registered_at: string;
+  certificate_issued: boolean;
+  certificate_url: string | null;
+}
+
+export interface MemberEventRow {
+  event: PublicEvent;
+  registration: MemberRegistration | null;
 }
 
 export interface EventSession {

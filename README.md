@@ -76,6 +76,8 @@ cd backend && uv run pytest
 | Super admin | Everything, plus users, event deletion and the audit log |
 | Admin | Create and manage every event, assign event teams |
 | Staff | Only events they're assigned to, as **Event manager** (attendees, attendance, certificates, export) or **Scanner** (scan, walk-ins, masked attendee list) |
+| Sponsor | Their own sponsor portal only (`/sponsor`) |
+| Member | Their own member portal only (`/member`): profile, events, one-click applications, passes |
 
 ## How attendance and CME eligibility work
 
@@ -85,6 +87,18 @@ cd backend && uv run pytest
 - Per event, the minimum applies either to the **total** across all sessions (default) or to **every session separately** ("How the minimum applies" in Settings). With the second rule, skipping a whole session means no certificate.
 - Forgot to scan out? The visit is closed at the end of *that day*. By default it's credited until then (switchable per event). It never spills into the next day of a multi-day event, and the person isn't "inside" the next morning — their next scan is a fresh check-in.
 - Managers can add a missed scan, void a wrong one, override eligibility, or revoke a certificate. Every change is logged.
+
+## Members
+
+Healthcare professionals can **become a member** for free at `/signup` (the "Become a member" button on the home page). They enter the registration details once (name, email, mobile, SCFHS number, National ID or Iqama, profession) and choose a password.
+
+- The **member portal** (`/member`) lists every published event. **Apply now** registers them in one click with the saved details, so there is no form per event. Applying twice is harmless and returns the same pass.
+- A member's registration is a normal registration: same capacity, closing and duplicate rules, same pass, QR code, attendance and certificate, and it appears in the event's attendee list like any other.
+- On a public event page a signed-in member sees **Apply with my membership** instead of the form. Guests can still register with the form and are offered membership.
+- **My details** (`/member/profile`) edits the saved details. Changes apply to future applications only; existing registrations keep the details they were made with. The email is the sign-in name and can't be changed there.
+- Registrations made earlier with the public form are attached to the membership only when email, ID number and mobile all match, the same proof the "Find my pass" form asks for.
+- Members sign in on the same `/login` page and can never reach `/admin` or `/sponsor`. They are not listed under **Users**, which shows team accounts only.
+- Email addresses are not verified at sign-up yet. Turn that on before a public launch if needed (see "To confirm with My Clinic").
 
 ## Sponsors
 
@@ -173,3 +187,4 @@ Back up the `pgdata` volume with `docker compose exec db pg_dump -U mce myclinic
 - SCFHS number format. Validation is deliberately permissive: 4–24 letters, digits, hyphens or slashes.
 - Certificate wording and signatory line.
 - Whether to keep the National ID / Iqama checksum check (`STRICT_NATIONAL_ID`, on by default).
+- Membership: whether guests may keep registering with the public form, or every attendee must become a member first; and whether new members must confirm their email address before they can apply.

@@ -41,7 +41,7 @@ def clean_tables():
     with engine.begin() as conn:
         conn.execute(text(
             "TRUNCATE audit_logs, badge_scans, sponsor_leads, sponsor_members, sponsors, scans, registrations, "
-            "event_staff, event_sessions, events, users RESTART IDENTITY CASCADE"
+            "event_staff, event_sessions, events, member_profiles, users RESTART IDENTITY CASCADE"
         ))
 
 

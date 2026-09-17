@@ -325,3 +325,24 @@ def queue_password_reset_email(background: BackgroundTasks, user: User, link: st
 <p style="margin:0;font-size:13px;color:#797C82">If you didn't ask for this, you can ignore this email. Your password won't change.</p>"""
     background.add_task(send_email, user.email, subject, text, _layout(body))
     return email_enabled()
+
+
+def queue_member_welcome_email(background: BackgroundTasks, user: User) -> bool:
+    """Welcome email after a member signs up. No password inside: they chose it themselves."""
+    e = html.escape
+    portal = _site("/member")
+    subject = "Welcome to My Clinic Educational"
+    text = (
+        f"Hello {user.full_name},\n\nYour My Clinic Educational membership is ready. It is free of charge.\n\n"
+        f"Browse the events and apply in one click, using the details you gave us when you signed up:\n{portal}\n\n"
+        f"You sign in with {user.email}.\n\nMy Clinic Educational"
+    )
+    body = f"""
+<p style="margin:0 0 14px">Hello {e(user.full_name)},</p>
+<p style="margin:0 0 14px">Your My Clinic Educational membership is ready. It is free of charge.</p>
+<p style="margin:0 0 20px">Browse the events and apply in one click, using the details you gave us when you signed up.
+You won't need to fill in a form for each event.</p>
+<p style="text-align:center;margin:0 0 22px">{_button(portal, "Open my portal")}</p>
+<p style="margin:0;font-size:13px;color:#797C82">You sign in with {e(user.email)}.</p>"""
+    background.add_task(send_email, user.email, subject, text, _layout(body))
+    return email_enabled()

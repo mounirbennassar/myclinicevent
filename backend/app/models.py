@@ -22,7 +22,7 @@ class User(TimestampMixin, Base):
     email: Mapped[str] = mapped_column(String(255), unique=True)
     full_name: Mapped[str] = mapped_column(String(200))
     password_hash: Mapped[str] = mapped_column(String(255))
-    # super_admin | admin | staff | sponsor
+    # super_admin | admin | staff | sponsor | member
     role: Mapped[str] = mapped_column(String(20), default="staff")
     # Sponsor portal users belong to exactly one sponsor and see nothing else.
     # use_alter breaks the users ⇄ sponsors FK cycle for create_all/drop_all (the migration is unaffected).
@@ -34,6 +34,25 @@ class User(TimestampMixin, Base):
     # Bumped on password change/reset or deactivation to revoke existing sessions.
     token_version: Mapped[int] = mapped_column(Integer, default=0)
     last_login_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+
+class MemberProfile(TimestampMixin, Base):
+    """What a member enters once at sign-up. Copied into a registration each time they apply to an event,
+    so registrations stay a snapshot even if the profile changes later. Name and email live on the user."""
+
+    __tablename__ = "member_profiles"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), unique=True)
+    mobile: Mapped[str] = mapped_column(String(32))
+    scfhs_number: Mapped[str] = mapped_column(String(40))
+    national_id: Mapped[str] = mapped_column(String(20), unique=True)
+    profession: Mapped[str | None] = mapped_column(String(40))
+    # Default answer to "share my details with sponsors who scan my badge"; can be changed per application.
+    sponsor_consent: Mapped[bool] = mapped_column(Boolean, default=False, server_default="false")
+    consent_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
+    user: Mapped[User] = relationship(lazy="joined")
 
 
 class Event(TimestampMixin, Base):
@@ -144,6 +163,8 @@ class Registration(TimestampMixin, Base):
     certificate_issued_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     email_sent_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     created_by_id: Mapped[int | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"))
+    # Set when a member applied through the portal (or later claimed a registration made with the public form).
+    member_id: Mapped[int | None] = mapped_column(ForeignKey("users.id", ondelete="SET NULL"), index=True)
 
     event: Mapped[Event] = relationship()
     scans: Mapped[list[Scan]] = relationship(

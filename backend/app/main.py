@@ -9,7 +9,8 @@ from .config import settings
 from .db import SessionLocal
 from .models import User
 from .routers import (
-    audit, auth, events, public, registrations, scans, sponsor_portal, sponsors_admin, sponsors_public, stats, users,
+    audit, auth, events, member_portal, public, registrations, scans, sponsor_portal, sponsors_admin, sponsors_public,
+    stats, users,
 )
 from .security import hash_password
 
@@ -59,7 +60,10 @@ app = FastAPI(
 # Attendee lists and stats are large JSON payloads; compress anything over 1 KB.
 app.add_middleware(GZipMiddleware, minimum_size=1024)
 
-for module in (auth, users, events, registrations, scans, stats, public, audit, sponsors_public, sponsors_admin, sponsor_portal):
+for module in (
+    auth, users, events, registrations, scans, stats, public, audit, sponsors_public, sponsors_admin, sponsor_portal,
+    member_portal,
+):
     app.include_router(module.router, prefix="/api")
 
 

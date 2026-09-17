@@ -166,7 +166,7 @@ def event_stats(
 def overview(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     now = svc.utcnow()
     q = select(Event).where(Event.status != "archived")
-    if user.role == "sponsor":
+    if user.role in ("sponsor", "member"):
         q = q.where(False)
     elif user.role not in ADMIN_ROLES:
         q = q.join(EventStaff, EventStaff.event_id == Event.id).where(EventStaff.user_id == user.id)

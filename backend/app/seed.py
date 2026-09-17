@@ -19,8 +19,8 @@ from . import services as svc
 from .config import settings
 from .db import SessionLocal, engine
 from .main import ensure_superadmin
-from .models import Event, EventStaff, Registration, Scan, User
-from .schemas import SessionIn, SponsorApplyIn
+from .models import Event, EventStaff, MemberProfile, Registration, Scan, User
+from .schemas import RegistrationIn, SessionIn, SponsorApplyIn
 from .sponsors import contact_member, create_sponsor, upsert_lead
 from .security import hash_password
 from .validators import national_id_check_digit
@@ -292,11 +292,34 @@ def seed_demo() -> None:
                     upsert_lead(db, sponsor, reg, method="booth_qr" if reg.id % 2 else "badge_scan",
                                 consent=bool(reg.id % 2), captured_by=None)
 
+        # 5) A demo member who signed up once and already applied to the upcoming event from the portal.
+        member_password = "Member-Demo-2026"
+        member_nine = "109876543"
+        member = User(email="member.demo@example.com", full_name="Dr. Reem Abdulaziz Al-Harbi", role="member",
+                      password_hash=hash_password(member_password), is_active=True, token_version=0)
+        db.add(member)
+        db.flush()
+        member_profile = MemberProfile(
+            user_id=member.id, mobile="+966555010203", scfhs_number="18-R-40117",
+            national_id=member_nine + national_id_check_digit(member_nine), profession="consultant",
+            sponsor_consent=True, consent_at=svc.utcnow(),
+        )
+        db.add(member_profile)
+        member_reg = svc.create_registration(
+            db, upcoming,
+            RegistrationIn(full_name=member.full_name, email=member.email, mobile=member_profile.mobile,
+                           scfhs_number=member_profile.scfhs_number, national_id=member_profile.national_id,
+                           profession=member_profile.profession, consent=True, sponsor_consent=True),
+            source="online",
+        )
+        member_reg.member_id = member.id
+
         db.commit()
         print(f"Demo data created: {len(live_regs) + 12} registrations for '{live.title}' (live now),")
         print(f"  64 for '{upcoming.title}', 96 for '{past.title}' (with certificates).")
         print("Demo sponsor portal logins (password for both):", sponsor_password)
         print("   lina.sponsor@example.com (Nova Pharma) · faisal.sponsor@example.com (MedDevice Arabia)")
+        print("Demo member portal login:", "member.demo@example.com", "/", member_password)
         print("Demo team accounts (password for all):", password)
         for email in ("events.admin@myclinic.local (admin)", "omar.manager@myclinic.local (event manager)",
                       "sara.scanner@myclinic.local (scanner)", "fahad.gate@myclinic.local (scanner)"):
@@ -312,7 +335,7 @@ def main() -> None:
         if settings.is_production:
             raise SystemExit("Refusing to reset a production database.")
         with engine.begin() as conn:
-            conn.execute(text("TRUNCATE audit_logs, scans, registrations, event_staff, event_sessions, events, users "
+            conn.execute(text("TRUNCATE audit_logs, scans, registrations, event_staff, event_sessions, events, member_profiles, users "
                               "RESTART IDENTITY CASCADE"))
         print("All data deleted.")
     ensure_superadmin()

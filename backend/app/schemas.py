@@ -3,7 +3,7 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
-Role = Literal["super_admin", "admin", "staff", "sponsor"]
+Role = Literal["super_admin", "admin", "staff", "sponsor", "member"]
 SponsorTier = Literal["platinum", "gold", "silver", "bronze", "exhibitor", "partner"]
 SponsorStatus = Literal["pending", "approved", "rejected"]
 EventStatus = Literal["draft", "published", "closed", "archived"]
@@ -172,6 +172,35 @@ class RegistrationIn(BaseModel):
     profession: str | None = Field(default=None, max_length=40)
     consent: bool = False
     sponsor_consent: bool = False
+
+
+class MemberSignupIn(BaseModel):
+    """Sign-up form for the member portal: the registration details once, plus a password."""
+
+    # Loose limits here; the real rules live in validators.py so errors come back per field.
+    full_name: str = Field(default="", max_length=300)
+    email: str = Field(default="", max_length=300)
+    mobile: str = Field(default="", max_length=40)
+    scfhs_number: str = Field(default="", max_length=60)
+    national_id: str = Field(default="", max_length=40)
+    profession: str | None = Field(default=None, max_length=40)
+    password: str = Field(default="", max_length=128)
+    consent: bool = False
+    sponsor_consent: bool = False
+
+
+class MemberProfileUpdate(BaseModel):
+    full_name: str | None = Field(default=None, max_length=300)
+    mobile: str | None = Field(default=None, max_length=40)
+    scfhs_number: str | None = Field(default=None, max_length=60)
+    national_id: str | None = Field(default=None, max_length=40)
+    profession: str | None = Field(default=None, max_length=40)
+    sponsor_consent: bool | None = None
+
+
+class MemberApplyIn(BaseModel):
+    # None means "use the preference saved on my profile".
+    sponsor_consent: bool | None = None
 
 
 class FindPassIn(BaseModel):

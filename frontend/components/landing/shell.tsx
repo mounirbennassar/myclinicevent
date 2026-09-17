@@ -10,8 +10,8 @@ import { landingCopy } from "./copy";
 import { LandingMotion } from "./motion";
 import s from "./landing.module.css";
 
-// Visitors join by registering for an event; there is no separate membership sign-up.
-const MEMBER_HREF = "/events";
+// Free membership: sign up once, then apply to any event from the member portal.
+const MEMBER_HREF = "/signup";
 
 export function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return (

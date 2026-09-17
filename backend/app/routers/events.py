@@ -29,7 +29,7 @@ _COPY_FIELDS = (
 
 @router.get("")
 def list_events(status: str | None = None, user: User = Depends(get_current_user), db: Session = Depends(get_db)):
-    if user.role == "sponsor":
+    if user.role in ("sponsor", "member"):
         return []
     q = select(Event).options(selectinload(Event.sessions))
     is_admin = user.role in ADMIN_ROLES

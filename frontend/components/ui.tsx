@@ -658,7 +658,7 @@ export function errorMessage(error: unknown, t: Dict, locale: Locale): string {
   if (error.code.startsWith("registration_")) {
     return t.public.states[error.code.slice("registration_".length)] ?? t.common.error;
   }
-  const known = t.auth.codes[error.code] ?? t.fieldErrors[error.code];
+  const known = t.auth.codes[error.code] ?? t.member.codes[error.code] ?? t.fieldErrors[error.code];
   if (known) return known;
   if (error.status === 403) return t.common.forbidden;
   if (error.status === 404) return t.common.notFound;

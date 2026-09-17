@@ -34,6 +34,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
   useEffect(() => {
     // Sponsor accounts have their own portal; nothing here is theirs.
     if (user?.role === "sponsor") router.replace("/sponsor");
+    if (user?.role === "member") router.replace("/member");
   }, [user, router]);
   useEffect(() => {
     if (user?.must_change_password && pathname !== "/admin/account") router.replace("/admin/account?required=1");
@@ -45,7 +46,7 @@ export function AdminShell({ children }: { children: ReactNode }) {
     router.replace("/login");
   }
 
-  if (!user || user.role === "sponsor") {
+  if (!user || user.role === "sponsor" || user.role === "member") {
     return (
       <div className="grid min-h-screen place-items-center p-6">
         {error && !unauthorized ? <ErrorBox error={error} onRetry={() => mutate()} /> : <Spinner className="size-8 text-navy" />}

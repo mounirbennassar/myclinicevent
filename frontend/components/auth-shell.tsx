@@ -8,7 +8,19 @@ import { useI18n } from "@/lib/i18n";
 import { LangToggle, LogoWhite, Petal } from "./brand";
 
 /** Split layout for sign-in pages: navy brand panel + form. */
-export function AuthShell({ title, intro, children }: { title: string; intro?: string; children: ReactNode }) {
+export function AuthShell({
+  title,
+  intro,
+  aside,
+  wide = false,
+  children,
+}: {
+  title: string;
+  intro?: string;
+  aside?: string;
+  wide?: boolean;
+  children: ReactNode;
+}) {
   const { t } = useI18n();
   return (
     <div className="grid min-h-screen lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
@@ -20,7 +32,7 @@ export function AuthShell({ title, intro, children }: { title: string; intro?: s
         <div className="relative mt-auto">
           <p className="text-[13px] font-bold text-brand-teal-soft">{t.brand.platform}</p>
           <h2 className="mt-2 text-[40px] font-extrabold leading-tight text-white">{t.brand.name}</h2>
-          <p className="mt-3 max-w-sm text-white/70">{t.auth.teamOnly}</p>
+          <p className="mt-3 max-w-sm text-white/70">{aside ?? t.auth.teamOnly}</p>
         </div>
       </aside>
       <main className="flex flex-col bg-white">
@@ -30,7 +42,7 @@ export function AuthShell({ title, intro, children }: { title: string; intro?: s
           </Link>
           <LangToggle />
         </div>
-        <div className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center px-5 pb-16">
+        <div className={`mx-auto flex w-full flex-1 flex-col justify-center px-5 pb-16 ${wide ? "max-w-xl" : "max-w-sm"}`}>
           <h1 className="text-[28px] font-extrabold">{title}</h1>
           {intro && <p className="mt-2 text-[14px] text-ink-500">{intro}</p>}
           <div className="mt-8">{children}</div>
